@@ -5,7 +5,7 @@ use \App\Http\Controllers\AuthorController;
 //grupacija route -> u ovom slucaju bi bio http://127.0.0.1:8000 sa dodatkom /author
 Route::prefix('author')->name('author.')->group(function(){
 
-    //Ova linija koda omogućuje osobama koji nisu korisnici da ostvore dva view-a (login i forgot-password)
+    //Ova linija koda omogućuje osobama koji nisu korisnici da otvore dva view-a (login i forgot-password)
         Route::middleware(['guest:web'])->group(function () {
             Route::view('/login','back.pages.auth.login')->name('login');
             Route::view('/forgot-password','back.pages.auth.forgot')->name('forgot-password');
@@ -17,6 +17,8 @@ Route::prefix('author')->name('author.')->group(function(){
         Route::middleware(['auth:web'])->group(function() {
             Route::get('/home', [AuthorController::class,'index'])->name('home');
             Route::post('/logout', [AuthorController::class, 'logout'])->name('logout');
+            Route::get('/profile', [AuthorController::class, 'profile'])->name('profile');
+            Route::post('/update-profile', [AuthorController::class, 'update'])->name('update');
             });
 
 });

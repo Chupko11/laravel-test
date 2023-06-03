@@ -114,11 +114,8 @@
             </div>
           </a>
           <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-            <a href="#" class="dropdown-item">Status</a>
-            <a href="./profile.html" class="dropdown-item">Profile</a>
-            <a href="#" class="dropdown-item">Feedback</a>
+            <a href="{{ route('author.profile') }}" class="dropdown-item">Profile</a>
             <div class="dropdown-divider"></div>
-            <a href="./settings.html" class="dropdown-item">Settings</a>
             <a href="{{ route('author.logout') }}" class="dropdown-item" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
           <form action="{{ route('author.logout') }}" id="logout-form" method="POST">@csrf</form>
           </div>
@@ -127,7 +124,7 @@
       <div class="collapse navbar-collapse" id="navbar-menu">
         <div class="d-flex flex-column flex-md-row flex-fill align-items-stretch align-items-md-center">
           <ul class="navbar-nav">
-            
+
             <li class="nav-item">
                 <a class="nav-link" href="./" >
                   <span class="nav-link-icon d-md-none d-lg-inline-block"><!-- Download SVG icon from http://tabler-icons.io/i/home -->
@@ -138,22 +135,22 @@
                   </span>
                 </a>
               </li>
-            
+
 
             <li class="nav-item dropdown">
-                
+
             <li class="nav-item">
               <a class="nav-link" href="./" >
-                
+
                 <span class="nav-link-title">
                   Menus & Categories
                 </span>
               </a>
             </li>
-            
+
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#navbar-extra" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
-                
+
                 <span class="nav-link-title">
                   Posts
                 </span>
