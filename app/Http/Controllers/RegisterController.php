@@ -24,6 +24,7 @@ public function index(){
             'username' => 'required'
         ]);
 
+
         $user = User::create(request(['name', 'email', 'password', 'username']));
 
         auth()->login($user);

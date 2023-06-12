@@ -11,6 +11,7 @@
         <div class="card-body">
           <h2 class="h2 text-center mb-4">Sign up</h2>
             <form action="{{ route('author.signupStore') }}" method="post">
+                @csrf
                 <div class="md-4">
                     <div class="mb-3">
                         <label class="form-label">Name</label>
@@ -39,6 +40,8 @@
 
 
             </form>
+
+
         </div>
 
     </div>

@@ -12,7 +12,7 @@ Route::prefix('author')->name('author.')->group(function(){
             Route::view('/login','back.pages.auth.login')->name('login');
             Route::view('/forgot-password','back.pages.auth.forgot')->name('forgot-password');
             Route::get('/signup', [RegisterController::class, 'create'])->name('signup');
-            Route::post('signup', [RegisterController::class, 'store'])->name('signupStore');
+            Route::post('/signup', [RegisterController::class, 'store'])->name('signupStore');
         });
 
         //The next part of the code is saying that for pages in the 'author' group,
