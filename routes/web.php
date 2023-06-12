@@ -15,6 +15,6 @@ use \App\Http\Controllers\AuthorController;
 
 
 //Kada osoba otvori stranicu, prvo što se otvori je welcome view.
-Route::get('', function () {
+Route::get('/', function () {
     return view('welcome');
 });

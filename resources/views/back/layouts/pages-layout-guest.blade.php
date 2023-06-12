@@ -36,14 +36,14 @@
   <body >
     <script src="./back/dist/js/demo-theme.min.js?1674944402"></script>
     <div class="page">
-      <!-- Navbar -->
-      @include('back.layouts.inc.header')
-      <div class="page-wrapper">
+    <!-- Navbar -->
+    @include('back.layouts.inc.headerguest')
+    <div class="page-wrapper">
         <!-- Page header -->
         @yield('pageHeader')
         <!-- Page body -->
         <div class="page-body">
-          <div class="container-xl">
+        <div class="container-xl">
             @yield('content')
           </div>
         </div>

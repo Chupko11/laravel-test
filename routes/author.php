@@ -1,14 +1,18 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\AuthorController;
+use App\Http\Controllers\RegisterController;
 
 //grupacija route -> u ovom slucaju bi bio http://127.0.0.1:8000 sa dodatkom /author
 Route::prefix('author')->name('author.')->group(function(){
 
     //Ova linija koda omogućuje osobama koji nisu korisnici da otvore dva view-a (login i forgot-password)
         Route::middleware(['guest:web'])->group(function () {
+            Route::get('/homeguest', [RegisterController::class,'index'])->name('homeGuest');
             Route::view('/login','back.pages.auth.login')->name('login');
             Route::view('/forgot-password','back.pages.auth.forgot')->name('forgot-password');
+            Route::get('/signup', [RegisterController::class, 'create'])->name('signup');
+            Route::post('signup', [RegisterController::class, 'store'])->name('signupStore');
         });
 
         //The next part of the code is saying that for pages in the 'author' group,

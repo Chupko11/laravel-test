@@ -14,13 +14,13 @@ class AuthorController extends Controller
 
     public function logout(){
         Auth::guard('web')->logout();
-        return redirect()->route('author.login');
+        return redirect()->route('author.homeGuest');
     }
 
     public function login(LoginRequest $request){
 
         $login = $request->login_id;
-        $password = $request->$password;
+        $password = $request->password;
 
 
         Auth::guard('web')->logout();

@@ -114,10 +114,10 @@
             </div>
           </a>
           <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-            <a href="{{ route('author.profile') }}" class="dropdown-item">Profile</a>
+            <a href="{{ route('author.login') }}" class="dropdown-item">Login</a>
             <div class="dropdown-divider"></div>
-            <a href="{{ route('author.logout') }}" class="dropdown-item" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Logout</a>
-          <form action="{{ route('author.logout') }}" id="logout-form" method="POST">@csrf</form>
+            <a href="{{ route('author.signup') }}" class="dropdown-item">Sign up</a>
+
           </div>
         </div>
       </div>
