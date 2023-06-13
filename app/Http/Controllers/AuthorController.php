@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
+use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class AuthorController extends Controller
@@ -84,7 +85,7 @@ class AuthorController extends Controller
         }
 
         $user->password = Hash::make($request->new_password);
-        $user->saveUser();
+        $user->save();
 
         return redirect()->back()->with('Success', 'The password has been changed');
     }

@@ -71,7 +71,7 @@
             </form>
         </div>
       </div>
-      <form action="POST" action="{{ route('author.passwordUpdate') }}">
+      <form method="post" action="{{ route('author.passwordUpdate') }}">
       @csrf
       <div class="tab-pane" id="tabs-password">
 
@@ -100,7 +100,7 @@
 
       <div class="tab-pane active show" id="tabs-picture">
         <div>
-            <form method="POST"  action="{{ route('author.pictureUpdate') }}">
+            <form method="post"  action="{{ route('author.pictureUpdate') }}">
                 @csrf
                 <input type="file" name="picture">
                 <button type="submit" class="btn btn-primary">Save changes</button>
