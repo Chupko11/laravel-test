@@ -3,6 +3,7 @@ use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\AuthorController;
 use App\Http\Controllers\RegisterController;
 
+
 //grupacija route -> u ovom slucaju bi bio http://127.0.0.1:8000 sa dodatkom /author
 Route::prefix('author')->name('author.')->group(function(){
 
@@ -23,6 +24,8 @@ Route::prefix('author')->name('author.')->group(function(){
             Route::post('/logout', [AuthorController::class, 'logout'])->name('logout');
             Route::get('/profile', [AuthorController::class, 'profile'])->name('profile');
             Route::post('/update-profile', [AuthorController::class, 'update'])->name('update');
-            });
+            Route::post('/profile/picture', [AuthorController::class, 'updateProfilePicture'])->name('pictureUpdate');
+            Route::post('/profile/password', [AuthorController::class, 'updatePassword'])->name('passwordUpdate');
+        });
 
 });
