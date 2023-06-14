@@ -22,9 +22,12 @@
     </div>
   </div>
   <br>
-  <div class="row">
-    <div class="card">
-        <div class="card-header">
+
+
+    <div class="row">
+      <div class="card">
+
+  <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs" data-bs-toggle="tabs">
       <li class="nav-item">
         <a href="#tabs-details" class="nav-link active" data-bs-toggle="tab">Personal details</a>
@@ -37,6 +40,8 @@
       </li>
     </ul>
   </div>
+
+
   <div class="card-body">
     <div class="tab-content">
       <div class="tab-pane active show" id="tabs-details">
@@ -71,10 +76,15 @@
             </form>
         </div>
       </div>
+    </div>
+  </div>
+
+
+  <div class="card-body">
+    <div class="tab-content">
+      <div class="tab-pane active show" id="tabs-password">
       <form method="post" action="{{ route('author.passwordUpdate') }}">
       @csrf
-      <div class="tab-pane" id="tabs-password">
-
         <div class="col-md-4">
             <div class="mb-3">
                 <label class="form-label">Old password</label>
@@ -95,10 +105,16 @@
 
             <button type="submit" class="btn btn-primary">Save changes</button>
         </div>
-      </div>
     </form>
+      </div>
+    </div>
+  </div>
 
+  <div class="card-body">
+    <div class="tab-content">
       <div class="tab-pane active show" id="tabs-picture">
+        <div>
+
         <div>
             <form method="post"  action="{{ route('author.pictureUpdate') }}">
                 @csrf
@@ -107,8 +123,14 @@
             </form>
         </div>
       </div>
+      </div>
+    </div>
+  </div>
+
 
     </div>
   </div>
+
+
 
 @endsection
