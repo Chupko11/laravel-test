@@ -71,22 +71,43 @@ class AuthorController extends Controller
         return redirect()->back()->with('Success', 'Profile picture updated successfully');
     }
 
-    public function updatePassword(Request $request){
-        $request->validate([
+    public function updatePasswordSave(Request $request){
+        $this->validate($request, [
             'old_password' => 'required',
-            'new_password' => 'required|min:8',
-            'confirm_password' => 'required|same:new_password',
+            'new_password' => 'required|min:8|',
+            'confirm_password' => 'required|same:new_password'
         ]);
-
-        $user = auth()->user();
+        $user = Auth::user();
 
         if(!Hash::check($request->old_password, $user->password)){
-            return redirect()->back()->withErrors(['old_password' => 'The old password is wrong.']);
+            return redirect()->back()->with('Error', 'The old password is wrong.');
+        }
+
+        if(strcmp($request->get('old_password'), $request->new_password)){
+            return redirect()->back()->with("error", "New password cannot be same as your old password.");
         }
 
         $user->password = Hash::make($request->new_password);
         $user->save();
 
         return redirect()->back()->with('Success', 'The password has been changed');
+    }
+
+    public function deleteAccount(Request $request){
+        $request->validate([
+            'password' => 'required'
+        ]);
+
+        $user = Auth::user();
+
+        if(!Hash::check($request->password, $user->password)){
+            return redirect()->back()->with('Error', 'Password is incorrect');
+        }
+
+        $user->delete();
+
+        Auth::logout();
+
+        return redirect()->route('author.login')->with('Account has been deleted succesfully');
     }
 }

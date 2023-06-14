@@ -1,7 +1,9 @@
 <?php
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\PostController;
 use \App\Http\Controllers\AuthorController;
 use App\Http\Controllers\RegisterController;
+
 
 
 //grupacija route -> u ovom slucaju bi bio http://127.0.0.1:8000 sa dodatkom /author
@@ -25,7 +27,13 @@ Route::prefix('author')->name('author.')->group(function(){
             Route::get('/profile', [AuthorController::class, 'profile'])->name('profile');
             Route::post('/update-profile', [AuthorController::class, 'update'])->name('update');
             Route::post('/profile/picture', [AuthorController::class, 'updateProfilePicture'])->name('pictureUpdate');
-            Route::post('/profile/password', [AuthorController::class, 'updatePassword'])->name('passwordUpdate');
+            Route::post('/profile/password', [AuthorController::class, 'updatePasswordSave'])->name('postPasswordUpdate');
+            Route::post('/profile/delete-account', [AuthorController::class, 'deleteAccount'])->name('deleteAccount');
+            Route::get('/posts/create', [PostController::class, 'create'] )->name('createPost');
+            Route::post('/posts', [PostController::class, 'store'])->name('storePost');
+            Route::get('/tag/create', [PostController::class, 'createTag'])->name('createTag');
+            Route::post('/tag', [PostController::class, 'storeTag'])->name('storeTag');
         });
+
 
 });

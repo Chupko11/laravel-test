@@ -38,6 +38,9 @@
       <li class="nav-item">
         <a href="#tabs-picture" class="nav-link" data-bs-toggle="tab">Change Profile picture</a>
       </li>
+      <li class="nav-item">
+        <a href="#tabs-delete" class="nav-link" data-bs-toggle="tab">Delete Account</a>
+      </li>
     </ul>
   </div>
 
@@ -52,25 +55,26 @@
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label class="form-label">Name</label>
-                            <input type="text" class="form-control" name="name" placeholder="Name">
+                            <input type="text" class="form-control" name="name" placeholder="{{ $user->name }}"></input>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label class="form-label">Username</label>
-                            <input type="text" class="form-control" name="username" placeholder="Username">
+                            <input type="text" class="form-control" name="username" placeholder="{{ $user->username }}"></input>
                         </div>
+
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label class="form-label">Email</label>
-                            <input type="text" class="form-control" name="email"  placeholder="Email">
+                            <input type="text" class="form-control" name="email"  placeholder="{{ $user->email }}"></input>
                         </div>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Biography</label>
-                    <textarea class="form-control" name="biography" placeholder="Textarea placeholder">{{ $user->biography }}</textarea>
+                    <textarea class="form-control" name="biography" placeholder="{{ $user->biography }}"></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Save changes</button>
             </form>
@@ -83,24 +87,24 @@
   <div class="card-body">
     <div class="tab-content">
       <div class="tab-pane active show" id="tabs-password">
-      <form method="post" action="{{ route('author.passwordUpdate') }}">
+      <form method="post" action="{{ route('author.postPasswordUpdate') }}">
       @csrf
         <div class="col-md-4">
             <div class="mb-3">
                 <label class="form-label">Old password</label>
-                <input type="password" class="form-control" name="old_password" placeholder="Old password ">
+                <input type="password" class="form-control" name="old_password" id="old_password" placeholder="Old password ">
             </div>
         </div>
         <div class="col-md-4">
             <div class="mb-3">
                 <label class="form-label">New password</label>
-                <input type="password" class="form-control" name="new_password" placeholder="New password">
+                <input type="password" class="form-control" name="new_password" id="new_password" placeholder="New password">
             </div>
         </div>
         <div class="col-md-4">
             <div class="mb-3">
                 <label class="form-label">Confirm password</label>
-                <input type="password" class="form-control" name="confirm_password" placeholder="Confirm password">
+                <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="Confirm password">
             </div>
 
             <button type="submit" class="btn btn-primary">Save changes</button>
@@ -123,6 +127,21 @@
             </form>
         </div>
       </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-body">
+    <div class="tab-content">
+      <div class="tab-pane active show" id="tabs-delete">
+        <div>
+            <form method="post"  action="{{ route('author.deleteAccount') }}">
+                @csrf
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" required>
+                <button type="submit" class="btn btn-primary">Delete account</button>
+            </form>
+        </div>
       </div>
     </div>
   </div>

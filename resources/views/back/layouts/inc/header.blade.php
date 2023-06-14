@@ -163,12 +163,15 @@
               <div class="dropdown-menu">
                 <div class="dropdown-menu-columns">
                   <div class="dropdown-menu-column">
-                    <a class="dropdown-item" href="./activity.html">
+                    <a class="dropdown-item" href="{{ route('author.createPost') }}">
                       Add new
                     </a>
                     <a class="dropdown-item" href="./gallery.html">
                       All posts
                     </a>
+                    <a class="dropdown-item" href="{{ route('author.createTag') }}">
+                        Add Tags
+                      </a>
                   </div>
                 </div>
               </div>
