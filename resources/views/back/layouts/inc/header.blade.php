@@ -4,7 +4,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <h1 class="navbar-brand navbar-brand-autodark d-none-navbar-horizontal pe-0 pe-md-3">
-        <a href=".">
+        <a href="{{ route('author.home') }}">
           <img src="./back/static/logo.svg" width="110" height="32" alt="Tabler" class="navbar-brand-image">
         </a>
       </h1>
@@ -166,7 +166,7 @@
                     <a class="dropdown-item" href="{{ route('author.createPost') }}">
                       Add new
                     </a>
-                    <a class="dropdown-item" href="./gallery.html">
+                    <a class="dropdown-item" href="{{ route('author.showPosts') }}">
                       All posts
                     </a>
                     <a class="dropdown-item" href="{{ route('author.createTag') }}">

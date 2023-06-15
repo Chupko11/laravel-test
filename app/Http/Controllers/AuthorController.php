@@ -33,7 +33,7 @@ class AuthorController extends Controller
 
     public function update(Request $request) {
 
-        $user = auth()->getUser();
+        $user = auth()->user();
 
         $user->name = $request->name;
         $user->biography = $request->biography;
@@ -46,7 +46,7 @@ class AuthorController extends Controller
     }
 
     public function profile() {
-        $user = auth()->getUser();
+        $user = auth()->user();
 
         return view('back.pages.profile', ['user' => $user]);
     }

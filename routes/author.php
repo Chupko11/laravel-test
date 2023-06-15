@@ -33,6 +33,10 @@ Route::prefix('author')->name('author.')->group(function(){
             Route::post('/posts', [PostController::class, 'store'])->name('storePost');
             Route::get('/tag/create', [PostController::class, 'createTag'])->name('createTag');
             Route::post('/tag', [PostController::class, 'storeTag'])->name('storeTag');
+            Route::get('/showPosts', [PostController::class, 'show'])->name('showPosts');
+            Route::delete('/deletePost/{id}', [PostController::class, 'delete'])->name('deletePost');
+            Route::post('/updatePost/{id}', [PostController::class, 'updatePost'])->name('updatePost');
+            Route::post('/updatePost', [PostController::class, 'postUpdatePost'])->name('postUpdatePost');
         });
 
 

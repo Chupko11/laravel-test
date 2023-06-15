@@ -13,7 +13,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+
     }
 
     /**
@@ -42,7 +42,7 @@ class PostController extends Controller
 
         $post->title = $request->title;
         $post->body = $request->body;
-
+        $post->user_id = $request->user_id;
         if($request->hasFile('cover_image')){
             $coverImage = $request->file('cover_image');
             $imagePath = $coverImage->store('public/cover_images');
@@ -58,42 +58,59 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show()
     {
-        //
+        $posts = Blog::all();
+        return view('back.pages.showpost', compact('posts'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
+    public function delete($id){
+        Blog::destroy($id);
+        return redirect()->back()->with('success', 'Post was deleted successfuly');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
+    public function updatePost($id){
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $post =Blog::find($id);
+        $tags = Tag::all();
+        return view('back.pages.updatepost', compact('post', 'tags'));
     }
 
 
-    //Tags
+
+    public function postUpdatePost(Request $request){
+    $postId = $request->input('post_id');
+    $post = Blog::find($postId);
+
+    $post->title = $request->input('title');
+    $post->body = $request->input('body');
+
+    if ($request->hasFile('cover_image')) {
+        $coverImage = $request->file('cover_image');
+        $imagePath = $coverImage->store('public/cover_images');
+        $post->cover_image = $imagePath;
+    }
+
+    $post->tags()->sync($request->input('tags'));
+
+    $post->save();
+
+    return redirect()->route('author.showPosts')->with('success', 'Post updated successfully');
+
+    }
+
+
+
+
+
+
     public function createTag(){
         $tags = Tag::all();
 
         return view('back.pages.tag', compact('tags'));
     }
+
+
 
     public function storeTag(Request $request){
         $request->validate([
