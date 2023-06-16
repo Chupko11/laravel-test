@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Blog;
 use Illuminate\Http\Request;
 use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
@@ -11,7 +12,8 @@ use Illuminate\Support\Facades\Storage;
 class AuthorController extends Controller
 {
     public function index(Request $request){
-        return view ('back.pages.home');
+        $posts = Blog::all();
+        return view ('back.pages.home', compact('posts'));
     }
 
     public function logout(){
@@ -59,7 +61,7 @@ class AuthorController extends Controller
         $user = auth()->user();
         $currentPicture = $user->picture;
 
-        $newPicture = $request->file('picture')->store('picture', 'public');
+        $newPicture = $request->file('picture')->store('/profilePictures');
 
         $user->picture = $newPicture;
         $user->save();
@@ -74,7 +76,7 @@ class AuthorController extends Controller
     public function updatePasswordSave(Request $request){
         $this->validate($request, [
             'old_password' => 'required',
-            'new_password' => 'required|min:8|',
+            'new_password' => 'required|min:8',
             'confirm_password' => 'required|same:new_password'
         ]);
         $user = Auth::user();
@@ -83,7 +85,7 @@ class AuthorController extends Controller
             return redirect()->back()->with('Error', 'The old password is wrong.');
         }
 
-        if(strcmp($request->get('old_password'), $request->new_password)){
+        if($request->get('old_password') === $request->new_password){
             return redirect()->back()->with("error", "New password cannot be same as your old password.");
         }
 

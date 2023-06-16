@@ -164,18 +164,40 @@
                 <div class="dropdown-menu-columns">
                   <div class="dropdown-menu-column">
                     <a class="dropdown-item" href="{{ route('author.createPost') }}">
-                      Add new
+                      Add new post
                     </a>
                     <a class="dropdown-item" href="{{ route('author.showPosts') }}">
                       All posts
                     </a>
-                    <a class="dropdown-item" href="{{ route('author.createTag') }}">
-                        Add Tags
-                      </a>
                   </div>
                 </div>
               </div>
             </li>
+
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#navbar-extra" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
+
+                  <span class="nav-link-title">
+                    Tags
+                  </span>
+                </a>
+                <div class="dropdown-menu">
+                  <div class="dropdown-menu-columns">
+                    <div class="dropdown-menu-column">
+                      <a class="dropdown-item" href="{{ route('author.createTag') }}">
+                        Add new tags
+                      </a>
+                      <a class="dropdown-item" href="{{ route('author.showTags') }}">
+                        Delete tags
+                      </a>
+
+                    </div>
+                  </div>
+                </div>
+              </li>
+
+              
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#navbar-help" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
                 <span class="nav-link-title">
@@ -188,6 +210,9 @@
                 </a>
               </div>
             </li>
+
+
+
           </ul>
         </div>
       </div>

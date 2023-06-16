@@ -1,15 +1,17 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Http\Controllers\LoginRequest;
-use Illuminate\Http\Request;
+use App\Models\Blog;
 use App\Models\User;
+use Illuminate\Http\Request;
+use App\Http\Controllers\LoginRequest;
 
 class RegisterController extends Controller
 {
     public $user, $password;
 public function index(){
-    return view ('back.pages.homeguest');
+    $posts = Blog::all();
+    return view ('back.pages.homeguest', compact('posts'));
 }
 
     public function create(){

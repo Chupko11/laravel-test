@@ -3,11 +3,14 @@
 @section('content')
 
 @foreach ($posts as $post)
+@if ($post->user_id === auth()->user()->id)
+
+
 <div class="card">
 	<div class="card-body">
-        <h3 class="card-title">{{ $post->title }}</h3>
+        <h1 class="card-title">{{ $post->title }}</h1>
         @if ($post->cover_image)
-        <img src="{{ asset('/storage' .$post->cover_image) }}" alt="Cover image" class="card-img-top">
+        <img src="{{ asset('/storage' .$post->cover_image) }}" alt="Cover image" class="card-img-top" style="width:auto; height:auto;">
         @endif
         <p class="card-text">{{ $post->body }}</p>
         <p class="card-text">Author: {{ $post->user->name }}</p>
@@ -30,6 +33,10 @@
         </form>
         </div>
 	</div>
-
+@endif
 @endforeach
+
+<div class="card align-items-center">
+{{ $posts->links() }}
+</div>
 @endsection

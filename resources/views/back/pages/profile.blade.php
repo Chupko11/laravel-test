@@ -43,11 +43,13 @@
       </li>
     </ul>
   </div>
+</div>
+</div>
 
 
   <div class="card-body">
     <div class="tab-content">
-      <div class="tab-pane active show" id="tabs-details">
+      <div class="tab-pane active" id="tabs-details">
         <div>
             <form method="post"  action="{{ route('author.update') }}">
                 @csrf
@@ -86,7 +88,7 @@
 
   <div class="card-body">
     <div class="tab-content">
-      <div class="tab-pane active show" id="tabs-password">
+      <div class="tab-pane" id="tabs-password">
       <form method="post" action="{{ route('author.postPasswordUpdate') }}">
       @csrf
         <div class="col-md-4">
@@ -116,7 +118,7 @@
 
   <div class="card-body">
     <div class="tab-content">
-      <div class="tab-pane active show" id="tabs-picture">
+      <div class="tab-pane" id="tabs-picture">
         <div>
 
         <div>
@@ -133,7 +135,7 @@
 
   <div class="card-body">
     <div class="tab-content">
-      <div class="tab-pane active show" id="tabs-delete">
+      <div class="tab-pane" id="tabs-delete">
         <div>
             <form method="post"  action="{{ route('author.deleteAccount') }}">
                 @csrf
@@ -147,8 +149,7 @@
   </div>
 
 
-    </div>
-  </div>
+
 
 
 

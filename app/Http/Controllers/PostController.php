@@ -52,7 +52,7 @@ class PostController extends Controller
 
         $tags = $request->input('tags');
         $post->tags()->attach($request->input('tags'));
-        return redirect()->route('author.createPost')->with('Post created successfuly');
+        return redirect()->route('author.showPosts')->with('Post created successfuly');
     }
 
     /**
@@ -60,7 +60,7 @@ class PostController extends Controller
      */
     public function show()
     {
-        $posts = Blog::all();
+        $posts = Blog::where('user_id', auth()->user()->id)->paginate(5);
         return view('back.pages.showpost', compact('posts'));
     }
 
@@ -87,8 +87,8 @@ class PostController extends Controller
 
     if ($request->hasFile('cover_image')) {
         $coverImage = $request->file('cover_image');
-        $imagePath = $coverImage->store('public/cover_images');
-        $post->cover_image = $imagePath;
+        $imagePath = $coverImage->store('cover_images', 'public');
+        $post->cover_image = "/" . $imagePath;
     }
 
     $post->tags()->sync($request->input('tags'));
@@ -122,6 +122,19 @@ class PostController extends Controller
         Tag::create(['name' => $tagName]);
 
         return redirect()->route('author.createTag')->with('Tag was created successfuly.');
+    }
+
+    public function deleteTag($id){
+        $tag = Tag::findOrFail($id);
+        $tag->delete();
+
+        return redirect()->back()->with('Success', 'Tag deleted successfully');
+    }
+
+    public function showTags(){
+        $tags = Tag::all();
+
+        return view('back.pages.deleteTag', compact('tags'));
     }
 
 }

@@ -37,6 +37,8 @@ Route::prefix('author')->name('author.')->group(function(){
             Route::delete('/deletePost/{id}', [PostController::class, 'delete'])->name('deletePost');
             Route::post('/updatePost/{id}', [PostController::class, 'updatePost'])->name('updatePost');
             Route::post('/updatePost', [PostController::class, 'postUpdatePost'])->name('postUpdatePost');
+            Route::delete('/tag/{id}', [PostController::class, 'deleteTag'])->name('deleteTag');
+            Route::get('/tag', [PostController::class, 'showTags'])->name('showTags');
         });
 
 

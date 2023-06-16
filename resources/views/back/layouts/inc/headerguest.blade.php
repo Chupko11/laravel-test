@@ -158,11 +158,8 @@
               <div class="dropdown-menu">
                 <div class="dropdown-menu-columns">
                   <div class="dropdown-menu-column">
-                    <a class="dropdown-item" href="./activity.html">
-                      Add new
-                    </a>
                     <a class="dropdown-item" href="./gallery.html">
-                      All posts
+                    All posts
                     </a>
                   </div>
                 </div>
