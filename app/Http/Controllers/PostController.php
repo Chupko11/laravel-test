@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tag;
 use App\Models\Blog;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -33,7 +34,7 @@ class PostController extends Controller
         $request->validate([
             'title'=>'required',
             'body'=>'required',
-            'cover_image'=> 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'cover_image'=> 'image|mimes:jpeg,png,jpg,gif',
             'tags' => 'required|array',
             'tags.*' => 'exists:tags,id',
         ]);
@@ -44,14 +45,19 @@ class PostController extends Controller
         $post->body = $request->body;
         $post->user_id = $request->user_id;
         if($request->hasFile('cover_image')){
+
             $coverImage = $request->file('cover_image');
-            $imagePath = $coverImage->store('public/cover_images');
-            $post->cover_image = $imagePath;
+            $imagePath = $coverImage->store('cover_images', 'public');
+            $post->cover_image = "/" . $imagePath;
+
         }
-        $post->save();
+
+
+    $post->save();
 
         $tags = $request->input('tags');
         $post->tags()->attach($request->input('tags'));
+
         return redirect()->route('author.showPosts')->with('Post created successfuly');
     }
 
@@ -135,6 +141,29 @@ class PostController extends Controller
         $tags = Tag::all();
 
         return view('back.pages.deleteTag', compact('tags'));
+    }
+
+    public function search(){
+        $posts = Blog::with('user')->get();
+        return view ('back.pages.searchpost', compact('posts'));
+    }
+
+    public function postSearchPost(Request $request){
+        $authorName = $request->input('author_name');
+        $posts = [];
+        if ($authorName){
+            $author = User::where('name', $authorName)->first();
+
+            if($author){
+                $posts = Blog::where('user_id', $author->id)->with('user')->get();
+
+            }else{
+                $posts = Blog::with('user')->get();
+            }
+
+        }
+
+        return view('back.pages.searchpost', compact('posts', 'authorName'));
     }
 
 }

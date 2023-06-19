@@ -59,11 +59,15 @@ class AuthorController extends Controller
         ]);
 
         $user = auth()->user();
+
+        if($request->hasFile('picture')){
+
         $currentPicture = $user->picture;
+        $newPicture = $request->file('picture');
+        $picturePath = $newPicture->store('public/profile_pictures/' . $user->id);
+        $user->picture =str_replace('public/' , '', $picturePath);
 
-        $newPicture = $request->file('picture')->store('/profilePictures');
-
-        $user->picture = $newPicture;
+    }
         $user->save();
 
         if($currentPicture){
@@ -89,11 +93,13 @@ class AuthorController extends Controller
             return redirect()->back()->with("error", "New password cannot be same as your old password.");
         }
 
-        $user->password = Hash::make($request->new_password);
+        $user->password = $request->new_password;
         $user->save();
 
         return redirect()->back()->with('Success', 'The password has been changed');
     }
+
+
 
     public function deleteAccount(Request $request){
         $request->validate([

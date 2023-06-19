@@ -6,6 +6,7 @@
 </div>
 <div class="card-container">
 @foreach ($posts as $post)
+<div class="col">
 <div class="card">
 	<div class="card-body">
         <h1 class="card-title">{{ $post->title }}</h1>
@@ -23,6 +24,8 @@
         </p>
 </div>
 </div>
+</div>
+
 
 @endforeach
 
@@ -30,7 +33,13 @@
 .card-container{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+
+}
+
+.col{
+    flex-basis: 33%;
+    padding: 10px;
+    box-sizing: border-box;
 }
 
 .card{

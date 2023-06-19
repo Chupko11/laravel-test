@@ -108,7 +108,7 @@
 
         <div class="nav-item dropdown">
             <a href="#" class="nav-link d-flex lh-1 text-reset p-0" data-bs-toggle="dropdown" aria-label="Open user menu">
-            <span class="avatar avatar-sm" style="background-image: url(./static/avatars/000m.jpg)"></span>
+            <span class="avatar avatar-sm" style="background-image: url('{{ asset('storage/' . auth()->user()->picture) }}')"></span>
                 @if (auth()->check())
             <div class="d-none d-xl-block ps-2">
               <div>{{ Auth::user()->name }}</div>
@@ -145,10 +145,9 @@
             <li class="nav-item dropdown">
 
             <li class="nav-item">
-              <a class="nav-link" href="./" >
-
+              <a class="nav-link" href="{{ route('author.searchPost') }}" >
                 <span class="nav-link-title">
-                  Menus & Categories
+                  View posts
                 </span>
               </a>
             </li>
@@ -196,23 +195,6 @@
                   </div>
                 </div>
               </li>
-
-              
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#navbar-help" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
-                <span class="nav-link-title">
-                  Settings
-                </span>
-              </a>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="./docs/">
-                  General Settings
-                </a>
-              </div>
-            </li>
-
-
-
           </ul>
         </div>
       </div>

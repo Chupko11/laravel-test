@@ -39,6 +39,9 @@ Route::prefix('author')->name('author.')->group(function(){
             Route::post('/updatePost', [PostController::class, 'postUpdatePost'])->name('postUpdatePost');
             Route::delete('/tag/{id}', [PostController::class, 'deleteTag'])->name('deleteTag');
             Route::get('/tag', [PostController::class, 'showTags'])->name('showTags');
+            Route::get('/search', [PostController::class, 'search'])->name('searchPost');
+            Route::post('/searchpost', [PostController::class, 'postSearchPost'])->name('postSearchPost');
+
         });
 
 

@@ -140,10 +140,10 @@
             <li class="nav-item dropdown">
 
             <li class="nav-item">
-              <a class="nav-link" href="./" >
+              <a class="nav-link" href="{{ route('author.searchPost') }}" >
 
                 <span class="nav-link-title">
-                  Menus & Categories
+                  View posts
                 </span>
               </a>
             </li>

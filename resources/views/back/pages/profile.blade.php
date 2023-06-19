@@ -122,7 +122,7 @@
         <div>
 
         <div>
-            <form method="post"  action="{{ route('author.pictureUpdate') }}">
+            <form method="post"  action="{{ route('author.pictureUpdate') }}" enctype="multipart/form-data">
                 @csrf
                 <input type="file" name="picture">
                 <button type="submit" class="btn btn-primary">Save changes</button>
