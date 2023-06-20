@@ -16,6 +16,9 @@ Route::prefix('author')->name('author.')->group(function(){
             Route::view('/forgot-password','back.pages.auth.forgot')->name('forgot-password');
             Route::get('/signup', [RegisterController::class, 'create'])->name('signup');
             Route::post('/signup', [RegisterController::class, 'store'])->name('signupStore');
+            Route::get('/search', [PostController::class, 'search'])->name('searchPost');
+            Route::get('/searchpost', [PostController::class, 'postSearchPost'])->name('postSearchPost');
+
         });
 
         //The next part of the code is saying that for pages in the 'author' group,
@@ -39,9 +42,7 @@ Route::prefix('author')->name('author.')->group(function(){
             Route::post('/updatePost', [PostController::class, 'postUpdatePost'])->name('postUpdatePost');
             Route::delete('/tag/{id}', [PostController::class, 'deleteTag'])->name('deleteTag');
             Route::get('/tag', [PostController::class, 'showTags'])->name('showTags');
-            Route::get('/search', [PostController::class, 'search'])->name('searchPost');
-            Route::post('/searchpost', [PostController::class, 'postSearchPost'])->name('postSearchPost');
-
+            
         });
 
 

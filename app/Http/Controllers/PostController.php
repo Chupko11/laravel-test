@@ -7,6 +7,8 @@ use App\Models\Blog;
 use App\Models\User;
 use Illuminate\Http\Request;
 
+
+
 class PostController extends Controller
 {
     /**
@@ -144,7 +146,7 @@ class PostController extends Controller
     }
 
     public function search(){
-        $posts = Blog::with('user')->get();
+        $posts = Blog::with('user')->orderBy('created_at', 'desc')->paginate(5);
         return view ('back.pages.searchpost', compact('posts'));
     }
 
@@ -155,12 +157,12 @@ class PostController extends Controller
             $author = User::where('name', $authorName)->first();
 
             if($author){
-                $posts = Blog::where('user_id', $author->id)->with('user')->get();
+                $posts = Blog::where('user_id', $author->id)->with('user')->orderBy('created_at', 'desc')->paginate(5);
 
-            }else{
-                $posts = Blog::with('user')->get();
             }
-
+        }
+        if(empty($posts)) {
+            $posts = Blog::with('user')->orderBy('created_at', 'desc')->paginate(5);
         }
 
         return view('back.pages.searchpost', compact('posts', 'authorName'));

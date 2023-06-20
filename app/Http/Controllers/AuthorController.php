@@ -55,7 +55,7 @@ class AuthorController extends Controller
 
     Public function updateProfilePicture(Request $request){
         $request->validate([
-            'picture' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'picture' => 'required|image|mimes:jpeg,png,jpg,gif',
         ]);
 
         $user = auth()->user();

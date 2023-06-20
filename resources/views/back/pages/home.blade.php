@@ -5,6 +5,8 @@
     <img src="{{ asset('back/heroImage.jpg') }}" alt="Hero Image" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
 </div>
 <div class="card-container">
+    <br>
+<div class="row">
 @foreach ($posts as $post)
 <div class="col">
 <div class="card">
@@ -25,7 +27,7 @@
 </div>
 </div>
 </div>
-
+</div>
 
 @endforeach
 
