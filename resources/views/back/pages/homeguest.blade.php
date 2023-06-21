@@ -5,50 +5,30 @@
     <img src="{{ asset('back/heroImage.jpg') }}" alt="Hero Image" style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
 </div>
 
-<div class="card-container">
-@foreach ($posts as $post)
-<div class="card">
-	<div class="card-body">
-        <h1 class="card-title">{{ $post->title }}</h1>
-        @if ($post->cover_image)
-        <div class="image-container"></div>
-        <img src="{{ asset('/storage' .$post->cover_image) }}" alt="Cover image" class="card-img-top" style="width:auto; height:auto;">
-        </div>
-        @endif
-        <p class="card-text">{{ $post->body }}</p>
-        <p class="card-text">Author: {{ $post->user->name }}</p>
-        <p class="card-text">Tags:
-            @foreach ($post->tags as $tag)
-            {{ $tag->name }}
-            @endforeach
-        </p>
-</div>
-</div>
+<div class="row">
+    @foreach ($posts as $post)
+    <div class="col-md-4">
+    <div class="card mb-3">
 
-@endforeach
+            @if ($post->cover_image)
+            <img src="{{ asset('/storage' .$post->cover_image) }}" alt="Cover image" class="card-img-top" style="object-fit: cover;">
+            @endif
+            <div class="card-body">
+            <a href="{{ route('author.postsDisplay', $post->id) }}" class="card-title">{{ $post->title }}</a>
+            <p class="card-text">{{Str::limit($post->body, 100)  }}</p>
+            <p class="card-text">Author: {{ $post->user->name }}</p>
+            <p class="card-text">Tags:
+                @foreach ($post->tags as $tag)
+                {{ $tag->name }}
+                @endforeach
+            </p>
+    </div>
+    </div>
+    </div>
 
-<style>
-.card-container{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-
-.card{
-
-    width: calc(23% - 10px);
-    margin-bottom:20px
-}
-.image-container{
-    display: flex;
-    justify-content: center;
-}
-.card-img-top{
-    max-width:100%;
-    max-height: 100%;
-}
-
-
-
-</style>
-@endsection
+    @endforeach
+    </div>
+    <div class="card align-items-center">
+    {{ $posts->links() }}
+    </div>
+    @endsection

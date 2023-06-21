@@ -147,36 +147,6 @@
                 </span>
               </a>
             </li>
-
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#navbar-extra" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
-
-                <span class="nav-link-title">
-                  Posts
-                </span>
-              </a>
-              <div class="dropdown-menu">
-                <div class="dropdown-menu-columns">
-                  <div class="dropdown-menu-column">
-                    <a class="dropdown-item" href="./gallery.html">
-                    All posts
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#navbar-help" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
-                <span class="nav-link-title">
-                  Settings
-                </span>
-              </a>
-              <div class="dropdown-menu">
-                <a class="dropdown-item" href="./docs/">
-                  General Settings
-                </a>
-              </div>
-            </li>
           </ul>
         </div>
       </div>

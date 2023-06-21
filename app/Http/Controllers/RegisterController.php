@@ -10,7 +10,7 @@ class RegisterController extends Controller
 {
     public $user, $password;
 public function index(){
-    $posts = Blog::all();
+    $posts = Blog::orderBy('created_at', 'desc')->paginate(5);
     return view ('back.pages.homeguest', compact('posts'));
 }
 

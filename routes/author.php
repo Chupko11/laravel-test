@@ -17,7 +17,8 @@ Route::prefix('author')->name('author.')->group(function(){
             Route::get('/signup', [RegisterController::class, 'create'])->name('signup');
             Route::post('/signup', [RegisterController::class, 'store'])->name('signupStore');
             Route::get('/search', [PostController::class, 'search'])->name('searchPost');
-            Route::get('/searchpost', [PostController::class, 'postSearchPost'])->name('postSearchPost');
+
+            Route::get('/posts/{post}', [PostController::class, 'display'])->name('postsDisplay');
 
         });
 
@@ -42,8 +43,8 @@ Route::prefix('author')->name('author.')->group(function(){
             Route::post('/updatePost', [PostController::class, 'postUpdatePost'])->name('postUpdatePost');
             Route::delete('/tag/{id}', [PostController::class, 'deleteTag'])->name('deleteTag');
             Route::get('/tag', [PostController::class, 'showTags'])->name('showTags');
-            
+
         });
-
-
+        Route::get('/searchpost', [PostController::class, 'postSearchPost'])->name('postSearchPost');
+        Route::get('/posts/{post}', [PostController::class, 'display'])->name('postsDisplay');
 });

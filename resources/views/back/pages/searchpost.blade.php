@@ -34,7 +34,7 @@
     @foreach ($posts as $post)
 <div class="card">
 <div class="card-body">
-    <h1 class="card-text">{{ $post->title }}</h1>
+    <a href="{{ route('author.postsDisplay', $post->id) }}" class="card-title">{{ $post->title }}</a>
     @if ($post->cover_image)
     <img src="{{ asset('/storage' . $post->cover_image) }}" alt="Cover image" style="max-width:20%; max-height:20%; display: block; margin-left: auto; margin-right: auto;">
     @endif

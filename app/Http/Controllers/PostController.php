@@ -168,4 +168,9 @@ class PostController extends Controller
         return view('back.pages.searchpost', compact('posts', 'authorName'));
     }
 
+    public function display($post){
+        $post = Blog::findOrFail($post);
+        return view('back.pages.displaypost', compact('post'));
+    }
+
 }
