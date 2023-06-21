@@ -16,9 +16,6 @@ Route::prefix('author')->name('author.')->group(function(){
             Route::view('/forgot-password','back.pages.auth.forgot')->name('forgot-password');
             Route::get('/signup', [RegisterController::class, 'create'])->name('signup');
             Route::post('/signup', [RegisterController::class, 'store'])->name('signupStore');
-            Route::get('/search', [PostController::class, 'search'])->name('searchPost');
-
-            Route::get('/posts/{post}', [PostController::class, 'display'])->name('postsDisplay');
 
         });
 
@@ -45,6 +42,8 @@ Route::prefix('author')->name('author.')->group(function(){
             Route::get('/tag', [PostController::class, 'showTags'])->name('showTags');
 
         });
+        Route::get('/search', [PostController::class, 'search'])->name('searchPost');
         Route::get('/searchpost', [PostController::class, 'postSearchPost'])->name('postSearchPost');
         Route::get('/posts/{post}', [PostController::class, 'display'])->name('postsDisplay');
+
 });
