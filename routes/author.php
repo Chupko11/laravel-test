@@ -30,6 +30,11 @@ Route::prefix('author')->name('author.')->group(function(){
             Route::post('/profile/picture', [AuthorController::class, 'updateProfilePicture'])->name('pictureUpdate');
             Route::post('/profile/password', [AuthorController::class, 'updatePasswordSave'])->name('postPasswordUpdate');
             Route::post('/profile/delete-account', [AuthorController::class, 'deleteAccount'])->name('deleteAccount');
+
+
+        });
+
+        Route::middleware(['auth:web'])->group(function(){
             Route::get('/posts/create', [PostController::class, 'create'] )->name('createPost');
             Route::post('/posts', [PostController::class, 'store'])->name('storePost');
             Route::get('/tag/create', [PostController::class, 'createTag'])->name('createTag');
@@ -40,8 +45,12 @@ Route::prefix('author')->name('author.')->group(function(){
             Route::post('/updatePost', [PostController::class, 'postUpdatePost'])->name('postUpdatePost');
             Route::delete('/tag/{id}', [PostController::class, 'deleteTag'])->name('deleteTag');
             Route::get('/tag', [PostController::class, 'showTags'])->name('showTags');
-
         });
+
+
+
+
+
         Route::get('/search', [PostController::class, 'search'])->name('searchPost');
         Route::get('/searchpost', [PostController::class, 'postSearchPost'])->name('postSearchPost');
         Route::get('/posts/{post}', [PostController::class, 'display'])->name('postsDisplay');
