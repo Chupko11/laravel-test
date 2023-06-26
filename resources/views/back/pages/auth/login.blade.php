@@ -12,7 +12,6 @@
           <h2 class="h2 text-center mb-4">Login to your account</h2>
           @livewire('author-login-form');
         </div>
-        
     </div>
   </div>
 
