@@ -50,7 +50,7 @@
                         Password
                         <span class="form-label-description">
 
-                            <a href="{{ route('author.forgot-password') }}">I forgot password</a>
+                            <a href="{{ route('author.forgot-passwordView') }}">I forgot password</a>
                         </span>
                       </label>
 
@@ -72,12 +72,6 @@
                       @error('password')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
-                    </div>
-                    <div class="mb-2">
-                      <label class="form-check">
-                        <input type="checkbox" class="form-check-input">
-                        <span class="form-check-label">Remember me on this device</span>
-                      </label>
                     </div>
                     <div class="form-footer">
                       <button type="submit" class="btn btn-primary w-100">Sign in</button>

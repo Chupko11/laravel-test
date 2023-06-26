@@ -21,17 +21,6 @@ class AuthorController extends Controller
         return redirect()->route('author.homeGuest');
     }
 
-    public function login(LoginRequest $request){
-
-        $login = $request->login_id;
-        $password = $request->password;
-
-
-        Auth::guard('web')->logout();
-        return redirect()->route('author.login');
-    }
-
-
 
     public function update(Request $request) {
 
