@@ -13,13 +13,15 @@ Route::prefix('author')->name('author.')->group(function(){
         Route::middleware(['guest:web'])->group(function () {
             Route::get('/homeguest', [RegisterController::class,'index'])->name('homeGuest');
             Route::view('/login','back.pages.auth.login')->name('login');
-            Route::view('/forgot-password','back.pages.auth.forgot')->name('forgot-passwordView');
+
             Route::get('/signup', [RegisterController::class, 'create'])->name('signup');
             Route::post('/signup', [RegisterController::class, 'store'])->name('signupStore');
             Route::post('/login', [RegisterController::class, 'login'])->name('Loginrequest');
-            Route::post('/forgot-password',[RegisterController::class, 'forgotPassword'])->name('forgot-password');
-            Route::get('/reset-password', [RegisterController::class, 'resetPassword'])->name('resetPassword');
-            Route::post('/reset-password', [RegisterController::class, 'resetPasswordSave'])->name('resetPasswordSave');
+
+            Route::view('/forgot-password','back.pages.auth.forgot')->name('forgot-passwordView');   //otvara forgot password view - input email
+            Route::post('/forgot-password',[RegisterController::class, 'forgotPassword'])->name('forgot-password');//šalje se mail korisniku
+            Route::get('/reset-password', [RegisterController::class, 'resetPassword'])->name('resetPassword'); //otvara novi view gdje korisnik unosi novi password
+            Route::post('/reset-password', [RegisterController::class, 'resetPasswordSave'])->name('resetPasswordSave'); //sprema se novi password
 
         });
 

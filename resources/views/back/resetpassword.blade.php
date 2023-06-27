@@ -36,7 +36,7 @@
                 </div>
 
                 @endif
-                <form method="post" action="{{ route('author.Loginrequest') }}" autocomplete="off" novalidate="">
+                <form method="post" action="{{ route('author.resetPasswordSave') }}" autocomplete="off" novalidate="">
                     @csrf
                     <div class="mb-3">
                         <label class="form-label">
@@ -53,12 +53,12 @@
                       </div>
 
                     <div class="mb-3">
-                      <label class="form-label">
+                    <label class="form-label">
                         Confirm new Password
-                      </label>
-                      <div class="input-group input-group-flat">
+                    </label>
+                    <div class="input-group input-group-flat">
                         <input type="password" class="form-control" placeholder="Your password" autocomplete="off" name="confirm_password">
-                      </div>
+                    </div>
 
 
                       @error('password')
