@@ -17,4 +17,41 @@
         </p>
     </div>
 </div>
+
+<div class="card mt-4">
+    <div class="card-body">
+        <h4 class="text-center">Comments</h4>
+        <hr>
+        @foreach ($post->comments as $comment)
+        <div class="media mb-4">
+            <img src="{{ asset('storage/' . $comment->user->picture) }}" class="mr-3 rounded-circle" alt="User Avatar" style="width: 50px; height: 50px;">
+            <div class="media-body">
+                <h6 class="mt-0">{{ $comment->user->name }}</h6>
+                <p>{{ $comment->content }}</p>
+                <small class="text-muted">{{ $comment->created_at }}</small>
+            </div>
+        </div>
+        @endforeach
+    </div>
+</div>
+
+
+<div class="card mt-4">
+    <div class="card-body">
+        <h4 class="text-center">Add a Comment</h4>
+        <form action="{{ route('author.createComment', $post->id) }}" method="POST">
+            @csrf
+            <input type="hidden" name="user_id" value="{{ $post->user->id }}">
+            <div class="form-group">
+                <textarea name="content" class="form-control" rows="4" placeholder="Your comment" required></textarea>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Submit Comment</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
 @endsection

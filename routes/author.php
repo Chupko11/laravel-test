@@ -2,6 +2,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use \App\Http\Controllers\AuthorController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\RegisterController;
 
 
@@ -52,6 +53,9 @@ Route::prefix('author')->name('author.')->group(function(){
             Route::get('/tag', [PostController::class, 'showTags'])->name('showTags');
         });
 
+        Route::middleware(['auth:web'])->group(function(){
+            Route::post('/posts/{post}', [CommentController::class, 'store'])->name('createComment');
+        });
 
 
 
@@ -59,5 +63,5 @@ Route::prefix('author')->name('author.')->group(function(){
         Route::get('/search', [PostController::class, 'search'])->name('searchPost');
         Route::get('/searchpost', [PostController::class, 'postSearchPost'])->name('postSearchPost');
         Route::get('/posts/{post}', [PostController::class, 'display'])->name('postsDisplay');
+ });
 
-});
