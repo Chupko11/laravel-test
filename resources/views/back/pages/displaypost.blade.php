@@ -18,6 +18,7 @@
     </div>
 </div>
 
+
 <div class="card mt-4">
     <div class="card-body">
         <h4 class="text-center">Comments</h4>
@@ -29,6 +30,20 @@
                 <h6 class="mt-0">{{ $comment->user->name }}</h6>
                 <p>{{ $comment->content }}</p>
                 <small class="text-muted">{{ $comment->created_at }}</small>
+                @if (auth()->user()->is($comment->user))
+                <div class="d-flex justify-content-end">
+                    <form method="post" action="{{ route('author.deleteComment', ['id' => $comment->id]) }}">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger mr-2">Delete Comment</button>
+                    </form>
+
+                    <form method="post" action="{{ route('author.updateComment', ['id' => $comment->id]) }}">
+                        @csrf
+                        <button type="submit" class="btn btn-primary">Update Comment</button>
+                    </form>
+                </div>
+                @endif
             </div>
         </div>
         @endforeach
