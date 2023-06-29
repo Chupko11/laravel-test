@@ -22,6 +22,7 @@ class ForgotRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'email'=>'required|email|exists:users,email',
             'new_password' => 'required|min:8',
             'confirm_password' => 'required|same:new_password'
         ];

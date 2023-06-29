@@ -38,6 +38,14 @@
                 @endif
                 <form method="post" action="{{ route('author.resetPasswordSave') }}" autocomplete="off" novalidate="">
                     @csrf
+                    <input type="hidden" name="token" value="{{ $token }}">
+                    <div class="mb-3">
+                        <label class="form-label">
+                          Enter your email
+                        </label>
+                        <div class="input-group input-group-flat">
+                          <input type="email" class="form-control" placeholder="Your email" autocomplete="off" name="email">
+                        </div>
                     <div class="mb-3">
                         <label class="form-label">
                           Enter new Password

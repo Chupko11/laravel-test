@@ -20,9 +20,8 @@ Route::prefix('author')->name('author.')->group(function(){
 
             Route::view('/forgot-password','back.pages.auth.forgot')->name('forgot-passwordView');   //otvara forgot password view - input email
             Route::post('/forgot-password',[RegisterController::class, 'forgotPassword'])->name('forgot-password');//šalje se mail korisniku
-            Route::get('/reset-password', [RegisterController::class, 'resetPassword'])->name('resetPassword'); //otvara novi view gdje korisnik unosi novi password
             Route::post('/reset-password', [RegisterController::class, 'resetPasswordSave'])->name('resetPasswordSave'); //sprema se novi password
-
+            Route::get('/reset-password/{token}', [RegisterController::class, 'resetPassword'])->name('resetPassword'); //otvara novi view gdje korisnik unosi novi password
         });
 
         //The next part of the code is saying that for pages in the 'author' group,
