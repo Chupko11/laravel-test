@@ -2,17 +2,17 @@
 @section('pageTitle', isset($pageTitle) ? $pageTitle : 'Display post')
 
 @section('content')
-<div class="card">
+<div class="card mt-4">
     <div class="card-body">
-        <h1>{{ $post->title }}</h1>
+        <h1 class="card-title mb-4">{{ $post->title }}</h1>
         @if ($post->cover_image)
-        <img src="{{ asset('/storage' . $post->cover_image) }}" alt="Cover image" class="card-img-top" style="max-width:100%; max-height:100%; display:block; margin-left:auto; margin-right: auto;">
+            <img src="{{ asset('/storage' . $post->cover_image) }}" alt="Cover image" class="card-img-top mb-4" style="max-width: 100%; display: block; margin: 0 auto;">
         @endif
-        <p>{{ $post->body }}</p>
-        <p>Author: {{ $post->user->name }}</p>
-        <p>Tags:
+        <p class="card-text">{{ $post->body }}</p>
+        <p class="card-text">Author: {{ $post->user->name }}</p>
+        <p class="card-text">Tags:
             @foreach ($post->tags as $tag)
-            {{ $tag->name }}
+                <span class="badge badge-primary">{{ $tag->name }}</span>
             @endforeach
         </p>
     </div>
