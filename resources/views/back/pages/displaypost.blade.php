@@ -38,12 +38,28 @@
                         <button type="submit" class="btn btn-danger mr-2">Delete Comment</button>
                     </form>
 
-                    <form method="post" action="{{ route('author.updateComment', ['id' => $comment->id]) }}">
+                    <form>
                         @csrf
-                        <button type="submit" class="btn btn-primary">Update Comment</button>
+                        <button type="button" class="btn btn-primary" onclick="showUpdateForm('{{ $comment->id }}')">Update Comment</button>
                     </form>
                 </div>
-                @endif
+
+                <div id="updateComment" style="display: none;">
+                    <form method="post" action="{{ route('author.updateComment', ['id' => $comment->id]) }}">
+                        @csrf
+                        <textarea name="content" class="form-control" rows="4" placeholder="Update your comment" required>{{ $comment->content }}</textarea>
+                        <button type="submit" class="btn btn-primary">Save Changes</button>
+                    </form>
+                </div>
+
+                <script>
+                    function showUpdateForm(commentId) {
+                        const updateForm = document.getElementById(`updateComment`);
+                        updateForm.style.display = 'block';
+                    }
+                </script>
+            @endif
+
             </div>
         </div>
         @endforeach

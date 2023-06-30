@@ -58,15 +58,23 @@ class CommentController extends Controller
      */
     public function edit(string $id)
     {
-        //
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'content' => 'required|string'
+        ]);
+        $comment = Comments::where('id', $id)->first();
+
+        $comment->content = $request->content;
+        $comment->save();
+
+        return redirect()->back();
     }
 
     /**
@@ -74,6 +82,8 @@ class CommentController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $comment = Comments::where('id', $id)->first();
+        $comment->delete();
+        return redirect()->back();
     }
 }
