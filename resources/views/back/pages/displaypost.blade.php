@@ -30,6 +30,7 @@
                 <h6 class="mt-0">{{ $comment->user->name }}</h6>
                 <p>{{ $comment->content }}</p>
                 <small class="text-muted">{{ $comment->created_at }}</small>
+                @if(auth()->user())
                 @if (auth()->user()->is($comment->user))
                 <div class="d-flex justify-content-end">
                     <form method="post" action="{{ route('author.deleteComment', ['id' => $comment->id]) }}">
@@ -59,7 +60,7 @@
                     }
                 </script>
             @endif
-
+            @endif
             </div>
         </div>
         @endforeach
