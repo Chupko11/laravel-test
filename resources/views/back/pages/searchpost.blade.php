@@ -12,7 +12,7 @@
                         <div class="col-md-4">
                             <div class="mb-3">
                                 <label class="form-label">Name of an author</label>
-                                <input type="search" class="form-control" name="author_name" placeholder="Enter text" required>
+                                <input type="search" class="form-control" name="searchPost" placeholder="Enter text" required>
                             </div>
                         </div>
                         <div class="col-md-2">
@@ -54,13 +54,13 @@
     @endforeach
 </div>
 
-<div class="card align-items-center">
-    @if (isset($authorName))
-    {{ $posts->appends(['author_name' => $authorName])->links() }}
+{{-- <div class="card align-items-center">
+    @if (isset($search))
+    {{ $posts->appends(['searchPost' => $authorName])->links() }}
     @else
     {{ $posts->links() }}
     @endif
-</div>
+</div> --}}
 @endif
 
 @endsection

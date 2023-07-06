@@ -6,6 +6,7 @@ use App\Models\Tag;
 use App\Models\Blog;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\Builder;
 
 
 
@@ -151,21 +152,29 @@ class PostController extends Controller
     }
 
     public function postSearchPost(Request $request){
-        $authorName = $request->input('author_name');
-        $posts = [];
-        if ($authorName){
-            $author = User::where('name', $authorName)->first();
+        $search = '%'. $request->input('searchPost') .'%' ?? "%";
 
-            if($author){
-                $posts = Blog::where('user_id', $author->id)->with('user')->orderBy('created_at', 'desc')->paginate(5);
+        $posts = Blog::whereHas('user',function (Builder $query) use ($search) {
+            $query->where('name','like', $search);
 
-            }
-        }
-        if(empty($posts)) {
-            $posts = Blog::with('user')->orderBy('created_at', 'desc')->paginate(5);
-        }
+        })->orWhereHas('tags', function (Builder $query) use ($search){
+            $query->where('name', 'like', $search);
+        })
+        ->orWhere('title','like', $search)->get();
 
-        return view('back.pages.searchpost', compact('posts', 'authorName'));
+
+        // if ($authorName){
+        //     $author = User::where('name', $authorName)->first();
+
+        //     if($author){
+        //         $posts = Blog::where('user_id', $author->id)->with('user')->orderBy('created_at', 'desc')->paginate(5);
+
+        //     }
+        // }
+
+
+
+        return view('back.pages.searchpost', compact('posts', 'search'));
     }
 
     public function display($post){
