@@ -86,4 +86,30 @@ class CommentController extends Controller
         $comment->delete();
         return redirect()->back();
     }
+
+    public function likeComment(Comments $id){
+
+        $hasUserLiked = $id->likes()->where('user_id', auth()->user()->id)->exists();
+
+        if (!$hasUserLiked) {
+            $id->likes()->create([
+                'user_id' => auth()->user()->id,
+            ]);
+        }
+
+        return redirect()->back();
+    }
+
+    public function unlikeComment(Comments $id){
+
+        $hasUserLiked = $id->likes()->where('user_id', auth()->user()->id)->exists();
+
+        if ($hasUserLiked) {
+            $id->likes()->delete();
+        }
+
+        return redirect()->back();
+    }
+
+
 }

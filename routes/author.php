@@ -56,6 +56,8 @@ Route::prefix('author')->name('author.')->group(function(){
         Route::middleware(['auth:web'])->group(function(){
             Route::post('/posts/{post}', [CommentController::class, 'store'])->name('createComment');
             Route::delete('/posts/{id}', [CommentController::class, 'destroy'])->name('deleteComment');
+            Route::post('/comments/{id}/like', [CommentController::class, 'likeComment'])->name('comments.like');
+            Route::post('/comments/{id}/unlike', [CommentController::class, 'unlikeComment'])->name('comments.unlike');
             Route::post('/comments/{id}', [CommentController::class, 'update'])->name('updateComment');
         });
 

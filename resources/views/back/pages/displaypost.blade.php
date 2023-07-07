@@ -30,6 +30,31 @@
                 <h6 class="mt-0">{{ $comment->user->name }}</h6>
                 <p>{{ $comment->content }}</p>
                 <small class="text-muted">{{ $comment->created_at }}</small>
+                <style>
+                    .btn-outline-secondary {
+                    color: #6c757d;
+                    border-color: #6c757d;
+                	}
+
+                    .btn-outline-secondary:hover {
+                        color: #fff;
+                        background-color: #6c757d;
+                        border-color: #6c757d;
+                    }
+                </style>
+
+                <form method="POST" action="{{ $comment->hasUserLiked() ?
+                    route('author.comments.unlike', $comment->id) :
+                    route('author.comments.like', $comment->id) }}"
+                    >
+                    @csrf
+                    <button type="submit" class="btn btn-outline-secondary btn-sm ml-2">{{ $comment->hasUserLiked() ? 'Dislike' : 'Like' }}</button>
+                    {{-- <span class="text-muted ml-2">{{ $comment->like() }}</span> --}}
+                    <span class="text-muted ml-2">{{ $comment->likes()->count() }}</span>
+                </form>
+
+
+
                 @if(auth()->user())
                 @if (auth()->user()->is($comment->user))
                 <div class="d-flex justify-content-end">
