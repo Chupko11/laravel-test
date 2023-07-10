@@ -113,43 +113,23 @@ class PostController extends Controller
 
 
 
-    public function createTag(){
-        $tags = Tag::all();
-
-        return view('back.pages.tag', compact('tags'));
-    }
 
 
 
-    public function storeTag(Request $request){
-        $request->validate([
-            'name' => 'required|unique:tags',
-        ]);
 
-            $tagName = $request->input('name');
 
-        Tag::create(['name' => $tagName]);
 
-        return redirect()->route('author.createTag')->with('Tag was created successfuly.');
-    }
 
-    public function deleteTag($id){
-        $tag = Tag::findOrFail($id);
-        $tag->delete();
 
-        return redirect()->back()->with('Success', 'Tag deleted successfully');
-    }
 
-    public function showTags(){
-        $tags = Tag::all();
 
-        return view('back.pages.deleteTag', compact('tags'));
-    }
 
     public function search(){
         $posts = Blog::with('user')->orderBy('created_at', 'desc')->paginate(5);
         return view ('back.pages.searchpost', compact('posts'));
     }
+
+
 
     public function postSearchPost(Request $request){
         $search = '%'. $request->input('searchPost') .'%' ?? "%";
@@ -180,6 +160,30 @@ class PostController extends Controller
     public function display($post){
         $post = Blog::findOrFail($post);
         return view('back.pages.displaypost', compact('post'));
+    }
+
+    public function likePost(Blog $id){
+        $hasUserLiked = $id->likes()->where('user_id', auth()->user()->id)->exists();
+
+        if(!$hasUserLiked){
+            $id->likes()->create([
+                'user_id' => auth()->user()->id,
+            ]);
+        }
+
+        return redirect()->back();
+    }
+
+
+
+    public function unlikePost(Blog $id){
+        $hasUserLiked = $id->likes()->where('user_id', auth()->user()->id)->exists();
+
+        if($hasUserLiked){
+            $id->likes()->delete();
+        }
+
+        return redirect()->back();
     }
 
 }

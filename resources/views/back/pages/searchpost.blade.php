@@ -49,6 +49,15 @@
                 <span class="badge badge-primary">{{ $tag->name }}</span>
                 @endforeach
             </p>
+            <form method="POST" action="{{ $post->hasUserLiked() ?
+                route('author.post.unlike', $post->id) :
+                route('author.post.like', $post->id) }}"
+                >
+                @csrf
+                <button type="submit" class="btn btn-outline-secondary btn-sm ml-2">{{ $post->hasUserLiked() ? 'Dislike' : 'Like' }}</button>
+                {{-- <span class="text-muted ml-2">{{ $comment->like() }}</span> --}}
+                <span class="text-muted ml-2">{{ $post->likes()->count() }}</span>
+            </form>
         </div>
     </div>
     @endforeach

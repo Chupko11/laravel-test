@@ -8,6 +8,16 @@
         @if ($post->cover_image)
             <img src="{{ asset('/storage' . $post->cover_image) }}" alt="Cover image" class="card-img-top mb-4" style="max-width: 100%; display: block; margin: 0 auto;">
         @endif
+        <form method="POST" action="{{ $post->hasUserLiked() ?
+            route('author.post.unlike', $post->id) :
+            route('author.post.like', $post->id) }}"
+            >
+            @csrf
+            <button type="submit" class="btn btn-outline-secondary btn-sm ml-2">{{ $post->hasUserLiked() ? 'Dislike' : 'Like' }}</button>
+            {{-- <span class="text-muted ml-2">{{ $comment->like() }}</span> --}}
+            <span class="text-muted ml-2">{{ $post->likes()->count() }}</span>
+        </form>
+
         <p class="card-text">{{ $post->body }}</p>
         <p class="card-text">Author: {{ $post->user->name }}</p>
         <p class="card-text">Tags:

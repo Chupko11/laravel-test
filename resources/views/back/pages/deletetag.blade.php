@@ -4,7 +4,9 @@
 @foreach ($tags as $tag)
     <div class="card">
         <div class="card-body">
-            <h1 class="card-title">{{ $tag->name }}</h1>
+            <h1 class="card-title">
+                <a href="{{ route('author.showTagsPosts', $tag->id) }}">{{ $tag->name }}</a>
+            </h1>
             <form method="post" action="{{ route('author.deleteTag', ['id' => $tag->id]) }}">
                 @csrf
                 @method('DELETE')
