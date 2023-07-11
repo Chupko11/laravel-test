@@ -28,9 +28,9 @@ class TagController extends Controller
         return redirect()->route('author.createTag')->with('Tag was created successfuly.');
     }
 
-    public function deleteTag($id){
-        $tag = Tag::findOrFail($id);
-        $tag->delete();
+    public function deleteTag(Tag $id){
+
+        $id->delete();
 
         return redirect()->back()->with('Success', 'Tag deleted successfully');
     }
@@ -43,7 +43,7 @@ class TagController extends Controller
 
 
     public function showTagsPosts(Tag $tag){
-        $posts = Blog::whereHas('tags', function ($query) use ($tag){
+        $posts = Blog::with('user')->withCount('likes')->whereHas('tags', function ($query) use ($tag){
             $query->where('name', $tag->name);
         })->get();
 

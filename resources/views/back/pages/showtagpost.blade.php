@@ -27,14 +27,17 @@
                                 @endforeach
                             </p>
                         </div>
-                        <form method="POST" action="{{ $post->hasUserLiked() ?
+                        <?php
+                    $hasUserLiked = $post->hasUserLiked();
+                    ?>
+                        <form method="POST" action="{{ $hasUserLiked ?
                             route('author.post.unlike', $post->id) :
                             route('author.post.like', $post->id) }}"
                             >
                             @csrf
-                            <button type="submit" class="btn btn-outline-secondary btn-sm ml-2">{{ $post->hasUserLiked() ? 'Dislike' : 'Like' }}</button>
+                            <button type="submit" class="btn btn-outline-secondary btn-sm ml-2">{{ $hasUserLiked ? 'Dislike' : 'Like' }}</button>
                             {{-- <span class="text-muted ml-2">{{ $comment->like() }}</span> --}}
-                            <span class="text-muted ml-2">{{ $post->likes()->count() }}</span>
+                            <span class="text-muted ml-2">{{ $post->likes_count }}</span>
                         </form>
                     </div>
                 </div>

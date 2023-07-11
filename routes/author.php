@@ -24,10 +24,8 @@ Route::prefix('author')->name('author.')->group(function(){
             Route::get('/reset-password/{token}', [RegisterController::class, 'resetPassword'])->name('resetPassword'); //otvara novi view gdje korisnik unosi novi password
         });
 
-        //The next part of the code is saying that for pages in the 'author' group,
-        //if someone is logged in (which is what the empty brackets mean), they should be able to access a page called 'home'.
-        //This page is represented by a function called 'index' in a class called 'AuthorController'.
         Route::middleware(['auth:web'])->group(function() {
+        
             Route::get('/home', [AuthorController::class,'index'])->name('home');
             Route::post('/logout', [AuthorController::class, 'logout'])->name('logout');
             Route::get('/profile', [AuthorController::class, 'profile'])->name('profile');
@@ -37,33 +35,30 @@ Route::prefix('author')->name('author.')->group(function(){
             Route::post('/profile/delete-account', [AuthorController::class, 'deleteAccount'])->name('deleteAccount');
 
 
-        });
 
-        Route::middleware(['auth:web'])->group(function(){
             Route::get('/posts/create', [PostController::class, 'create'] )->name('createPost');
             Route::post('/posts', [PostController::class, 'store'])->name('storePost');
-
             Route::get('/showPosts', [PostController::class, 'show'])->name('showPosts');
             Route::delete('/deletePost/{id}', [PostController::class, 'delete'])->name('deletePost');
             Route::post('/updatePost/{id}', [PostController::class, 'updatePost'])->name('updatePost');
             Route::post('/updatePost', [PostController::class, 'postUpdatePost'])->name('postUpdatePost');
             Route::post('/posts/{id}/like', [PostController::class, 'likePost'])->name('post.like');
             Route::post('/posts/{id}/unlike', [PostController::class, 'unlikePost'])->name('post.unlike');
-        });
 
 
 
-        Route::middleware(['auth:web'])->group(function(){
+
+
             Route::get('/tag/create', [TagController::class, 'createTag'])->name('createTag');
             Route::post('/tag', [TagController::class, 'storeTag'])->name('storeTag');
             Route::get('/tag', [TagController::class, 'showTags'])->name('showTags');
             Route::get('/tag/{tag}', [TagController::class, 'showTagsPosts'])->name('showTagsPosts');
             Route::delete('/tag/{id}', [TagController::class, 'deleteTag'])->name('deleteTag');
-        });
 
 
 
-        Route::middleware(['auth:web'])->group(function(){
+
+
             Route::post('/posts/{post}', [CommentController::class, 'store'])->name('createComment');
             Route::delete('/posts/{id}', [CommentController::class, 'destroy'])->name('deleteComment');
             Route::post('/comments/{id}/like', [CommentController::class, 'likeComment'])->name('comments.like');
@@ -71,7 +66,10 @@ Route::prefix('author')->name('author.')->group(function(){
             Route::post('/comments/{id}/like', [CommentController::class, 'likeComment'])->name('comments.like');
             Route::post('/comments/{id}/unlike', [CommentController::class, 'unlikeComment'])->name('comments.unlike');
             Route::post('/comments/{id}', [CommentController::class, 'update'])->name('updateComment');
-        });
+
+
+
+    });
 
 
 

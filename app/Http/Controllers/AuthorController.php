@@ -12,7 +12,8 @@ use Illuminate\Support\Facades\Storage;
 class AuthorController extends Controller
 {
     public function index(Request $request){
-        $posts = Blog::orderBy('created_at', 'desc')->paginate(5);
+        $posts = Blog::with('tags', 'user')->withCount('likes')->orderBy('created_at', 'desc')->paginate(5);
+
         return view ('back.pages.home', compact('posts'));
     }
 

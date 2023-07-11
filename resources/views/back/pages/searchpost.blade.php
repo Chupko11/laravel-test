@@ -11,7 +11,7 @@
                     <div class="row">
                         <div class="col-md-4">
                             <div class="mb-3">
-                                <label class="form-label">Name of an author</label>
+                                <label class="form-label">Search</label>
                                 <input type="search" class="form-control" name="searchPost" placeholder="Enter text" required>
                             </div>
                         </div>
@@ -49,14 +49,18 @@
                 <span class="badge badge-primary">{{ $tag->name }}</span>
                 @endforeach
             </p>
-            <form method="POST" action="{{ $post->hasUserLiked() ?
+
+            <?php
+            $hasUserLiked = $post->hasUserLiked();
+            ?>
+            <form method="POST" action="{{ $hasUserLiked ?
                 route('author.post.unlike', $post->id) :
                 route('author.post.like', $post->id) }}"
                 >
                 @csrf
-                <button type="submit" class="btn btn-outline-secondary btn-sm ml-2">{{ $post->hasUserLiked() ? 'Dislike' : 'Like' }}</button>
+                <button type="submit" class="btn btn-outline-secondary btn-sm ml-2">{{ $hasUserLiked ? 'Dislike' : 'Like' }}</button>
                 {{-- <span class="text-muted ml-2">{{ $comment->like() }}</span> --}}
-                <span class="text-muted ml-2">{{ $post->likes()->count() }}</span>
+                <span class="text-muted ml-2">{{ $post->likes_count }}</span>
             </form>
         </div>
     </div>
