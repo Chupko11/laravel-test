@@ -13,53 +13,59 @@ Route::prefix('author')->name('author.')->group(function(){
 
     //Ova linija koda omogućuje osobama koji nisu korisnici da otvore dva view-a (login i forgot-password)
         Route::middleware(['guest:web'])->group(function () {
-            Route::get('/homeguest', [RegisterController::class,'index'])->name('homeGuest');
-            Route::get('/homeguest/signup', [RegisterController::class, 'create'])->name('signup');
-            Route::post('/homeguest/signup', [RegisterController::class, 'store'])->name('signupStore');
-            Route::view('/homeguest/login','back.pages.auth.login')->name('login');
-            Route::post('/homeguest/login', [RegisterController::class, 'login'])->name('Loginrequest');
-            Route::post('/homeguest/forgot-password',[RegisterController::class, 'forgotPassword'])->name('forgot-password');//šalje se mail korisniku
-            Route::post('/homeguest/reset-password', [RegisterController::class, 'resetPasswordSave'])->name('resetPasswordSave'); //sprema se novi password
-            Route::get('/homeguest/reset-password/{token}', [RegisterController::class, 'resetPassword'])->name('resetPassword'); //otvara novi view gdje korisnik unosi novi password
+
+        Route::prefix('homeguest')->group(function(){
+            Route::get('/', [RegisterController::class,'index'])->name('homeGuest');
+            Route::get('/signup', [RegisterController::class, 'create'])->name('signup');
+            Route::post('/signup', [RegisterController::class, 'store'])->name('signupStore');
+            Route::view('/login','back.pages.auth.login')->name('login');
+            Route::post('/login', [RegisterController::class, 'login'])->name('Loginrequest');
+            Route::post('/forgot-password',[RegisterController::class, 'forgotPassword'])->name('forgot-password');//šalje se mail korisniku
+            Route::post('/reset-password', [RegisterController::class, 'resetPasswordSave'])->name('resetPasswordSave'); //sprema se novi password
+            Route::get('/reset-password/{token}', [RegisterController::class, 'resetPassword'])->name('resetPassword'); //otvara novi view gdje korisnik unosi novi password
+
         });
+           });
 
         Route::middleware(['auth:web'])->group(function() {
 
-            Route::get('/home', [AuthorController::class,'index'])->name('home');
-            Route::post('/home/logout', [AuthorController::class, 'logout'])->name('logout');
-            Route::get('/home/profile', [AuthorController::class, 'profile'])->name('profile');
-            Route::post('/home/update-profile', [AuthorController::class, 'update'])->name('update');
-            Route::post('/home/profile/picture', [AuthorController::class, 'updateProfilePicture'])->name('pictureUpdate');
-            Route::post('/home/profile/password', [AuthorController::class, 'updatePasswordSave'])->name('postPasswordUpdate');
-            Route::post('/home/profile/delete-account', [AuthorController::class, 'deleteAccount'])->name('deleteAccount');
+            Route::prefix('home')->group(function(){
+            Route::get('/', [AuthorController::class,'index'])->name('home');
+            Route::post('/logout', [AuthorController::class, 'logout'])->name('logout');
+            Route::get('/profile', [AuthorController::class, 'profile'])->name('profile');
+            Route::post('/update-profile', [AuthorController::class, 'update'])->name('update');
+            Route::post('/profile/picture', [AuthorController::class, 'updateProfilePicture'])->name('pictureUpdate');
+            Route::post('/profile/password', [AuthorController::class, 'updatePasswordSave'])->name('postPasswordUpdate');
+            Route::post('/profile/delete-account', [AuthorController::class, 'deleteAccount'])->name('deleteAccount');
+        });
+
+        Route::prefix('posts')->group(function(){
+            Route::post('/', [PostController::class, 'store'])->name('storePost');
+            Route::get('/create', [PostController::class, 'create'] )->name('createPost');
+            Route::get('/showPosts', [PostController::class, 'show'])->name('showPosts');
+            Route::post('/updatePost', [PostController::class, 'postUpdatePost'])->name('postUpdatePost');
+            Route::delete('/deletePost/{id}', [PostController::class, 'delete'])->name('deletePost');
+            Route::post('/updatePost/{id}', [PostController::class, 'updatePost'])->name('updatePost');
+            Route::post('/{id}/like', [PostController::class, 'likePost'])->name('post.like');
+            Route::post('/{id}/unlike', [PostController::class, 'unlikePost'])->name('post.unlike');
+
+        });
 
 
+        Route::prefix('tag')->group(function(){
+            Route::get('/', [TagController::class, 'showTags'])->name('showTags');
+            Route::post('/', [TagController::class, 'storeTag'])->name('storeTag');
+            Route::get('/create', [TagController::class, 'createTag'])->name('createTag');
 
-            Route::get('/posts/create', [PostController::class, 'create'] )->name('createPost');
-            Route::post('/posts', [PostController::class, 'store'])->name('storePost');
-            Route::get('/posts/showPosts', [PostController::class, 'show'])->name('showPosts');
-            Route::post('/posts/updatePost', [PostController::class, 'postUpdatePost'])->name('postUpdatePost');
-            Route::delete('/posts/deletePost/{id}', [PostController::class, 'delete'])->name('deletePost');
-            Route::post('/posts/updatePost/{id}', [PostController::class, 'updatePost'])->name('updatePost');
-            Route::post('/posts/{id}/like', [PostController::class, 'likePost'])->name('post.like');
-            Route::post('/posts/{id}/unlike', [PostController::class, 'unlikePost'])->name('post.unlike');
+            Route::get('/{tag}', [TagController::class, 'showTagsPosts'])->name('showTagsPosts');
+            Route::delete('/{id}', [TagController::class, 'deleteTag'])->name('deleteTag');
 
-
+        });
 
 
-
-            Route::get('/tag/create', [TagController::class, 'createTag'])->name('createTag');
-            Route::post('/tag', [TagController::class, 'storeTag'])->name('storeTag');
-            Route::get('/tag', [TagController::class, 'showTags'])->name('showTags');
-            Route::get('/tag/{tag}', [TagController::class, 'showTagsPosts'])->name('showTagsPosts');
-            Route::delete('/tag/{id}', [TagController::class, 'deleteTag'])->name('deleteTag');
-
-
-
-
-
-            Route::post('/posts/{post}', [CommentController::class, 'store'])->name('createComment');
-            Route::delete('/posts/{id}', [CommentController::class, 'destroy'])->name('deleteComment');
+        Route::prefix('posts')->group(function(){
+            Route::post('/{post}', [CommentController::class, 'store'])->name('createComment');
+            Route::delete('/{id}', [CommentController::class, 'destroy'])->name('deleteComment');
             Route::post('/comments/{id}/like', [CommentController::class, 'likeComment'])->name('comments.like');
             Route::post('/comments/{id}/unlike', [CommentController::class, 'unlikeComment'])->name('comments.unlike');
             Route::post('/comments/{id}/like', [CommentController::class, 'likeComment'])->name('comments.like');
@@ -67,7 +73,7 @@ Route::prefix('author')->name('author.')->group(function(){
             Route::post('/comments/{id}', [CommentController::class, 'update'])->name('updateComment');
 
 
-
+        });
     });
 
 
