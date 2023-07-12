@@ -50,6 +50,7 @@
                 @endforeach
             </p>
 
+            @if(auth()->check())
             <?php
             $hasUserLiked = $post->hasUserLiked();
             ?>
@@ -62,6 +63,7 @@
                 {{-- <span class="text-muted ml-2">{{ $comment->like() }}</span> --}}
                 <span class="text-muted ml-2">{{ $post->likes_count }}</span>
             </form>
+            @endif
         </div>
     </div>
     @endforeach

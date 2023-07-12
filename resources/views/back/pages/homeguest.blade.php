@@ -28,7 +28,7 @@
                         </p>
                     </div>
                     <p>Likes:
-                    <span class="text-muted ml-2">{{ $post->likes()->count() }}</span>
+                    <span class="text-muted ml-2">{{ $post->likes_count }}</span>
                     </p>
                 </div>
             </div>

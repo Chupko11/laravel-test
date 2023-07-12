@@ -14,18 +14,16 @@ Route::prefix('author')->name('author.')->group(function(){
     //Ova linija koda omogućuje osobama koji nisu korisnici da otvore dva view-a (login i forgot-password)
         Route::middleware(['guest:web'])->group(function () {
             Route::get('/homeguest', [RegisterController::class,'index'])->name('homeGuest');
-            Route::view('/login','back.pages.auth.login')->name('login');
             Route::get('/signup', [RegisterController::class, 'create'])->name('signup');
             Route::post('/signup', [RegisterController::class, 'store'])->name('signupStore');
             Route::post('/login', [RegisterController::class, 'login'])->name('Loginrequest');
-            Route::view('/forgot-password','back.pages.auth.forgot')->name('forgot-passwordView');   //otvara forgot password view - input email
             Route::post('/forgot-password',[RegisterController::class, 'forgotPassword'])->name('forgot-password');//šalje se mail korisniku
             Route::post('/reset-password', [RegisterController::class, 'resetPasswordSave'])->name('resetPasswordSave'); //sprema se novi password
             Route::get('/reset-password/{token}', [RegisterController::class, 'resetPassword'])->name('resetPassword'); //otvara novi view gdje korisnik unosi novi password
         });
 
         Route::middleware(['auth:web'])->group(function() {
-        
+
             Route::get('/home', [AuthorController::class,'index'])->name('home');
             Route::post('/logout', [AuthorController::class, 'logout'])->name('logout');
             Route::get('/profile', [AuthorController::class, 'profile'])->name('profile');
@@ -73,9 +71,10 @@ Route::prefix('author')->name('author.')->group(function(){
 
 
 
-
+        Route::view('/login','back.pages.auth.login')->name('login');
+        Route::view('/forgot-password','back.pages.auth.forgot')->name('forgot-passwordView');
         Route::get('/search', [PostController::class, 'search'])->name('searchPost');
         Route::get('/searchpost', [PostController::class, 'postSearchPost'])->name('postSearchPost');
         Route::get('/posts/{post}', [PostController::class, 'display'])->name('postsDisplay');
- });
+});
 

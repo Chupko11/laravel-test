@@ -18,8 +18,9 @@ use Illuminate\Support\Facades\Mail;
 class RegisterController extends Controller
 {
     public $user, $password;
+
 public function index(){
-    $posts = Blog::orderBy('created_at', 'desc')->paginate(5);
+    $posts = Blog::with('tags', 'user')->withCount('likes')->orderBy('created_at', 'desc')->paginate(5);
     return view ('back.pages.homeguest', compact('posts'));
 }
 
@@ -37,7 +38,7 @@ public function index(){
 
         ]);
         $user = User::create(request(['name','username','email', 'password']));
-        
+
         Mail::to($request->email)->send(new RegistrationSuccess($user));
 
 
