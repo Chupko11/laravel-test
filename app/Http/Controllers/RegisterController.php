@@ -57,7 +57,8 @@ public function index(){
         if(Auth::guard('web')->attempt($creds)){
             $user= User::where('email', $request->login_id)->get()->first();
             Auth::login($user);
-            return redirect(route('author.home'));
+            session()->flash('Success','Welcome back,' . $user->name . '.');
+            return redirect(route('author.home'))->with( session()->flash('status','Welcome back,' . $user->name . '.'));
         }else{
             session()->flash('fail','Incorrect Email/Username or Password');
             return redirect()->back();
