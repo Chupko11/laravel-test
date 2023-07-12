@@ -104,7 +104,7 @@
           </a>
 
           <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-            <a href="{{ route('author.login') }}" class="dropdown-item">Login</a>
+            <a href="{{ route('author.loginView') }}" class="dropdown-item">Login</a>
             <div class="dropdown-divider"></div>
             <a href="{{ route('author.signup') }}" class="dropdown-item">Sign up</a>
         </div>

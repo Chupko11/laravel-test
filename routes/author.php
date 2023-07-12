@@ -18,7 +18,7 @@ Route::prefix('author')->name('author.')->group(function(){
             Route::get('/', [RegisterController::class,'index'])->name('homeGuest');
             Route::get('/signup', [RegisterController::class, 'create'])->name('signup');
             Route::post('/signup', [RegisterController::class, 'store'])->name('signupStore');
-            Route::view('/login','back.pages.auth.login')->name('login');
+            Route::view('/login','back.pages.auth.login')->name('loginView');
             Route::post('/login', [RegisterController::class, 'login'])->name('Loginrequest');
             Route::post('/forgot-password',[RegisterController::class, 'forgotPassword'])->name('forgot-password');//šalje se mail korisniku
             Route::post('/reset-password', [RegisterController::class, 'resetPasswordSave'])->name('resetPasswordSave'); //sprema se novi password

@@ -1,3 +1,4 @@
+
 @extends('back.layouts.auth-layout')
 @section('pagetitle', isset($pageTitle) ? $pageTitle : 'Login')
 @section('content')
