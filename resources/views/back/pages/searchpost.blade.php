@@ -39,7 +39,7 @@
         <div class="card-body">
             <h5 class="card-title"><a href="{{ route('author.postsDisplay', $post->id) }}" class="text-decoration-none text-dark">{{ $post->title }}</a></h5>
             @if ($post->cover_image)
-            <img src="{{ asset('/storage' . $post->cover_image) }}" alt="Cover image" class="card-img-top mb-3" style="max-width:20%; max-height:20%; display: block; margin-left: auto; margin-right: auto;">
+            <img src="{{ asset('/storage' . $post->cover_image) }}" decoding="async" loading="lazy" alt="Cover image" class="card-img-top mb-3" style="max-width:20%; max-height:20%; display: block; margin-left: auto; margin-right: auto;">
             @endif
             <p class="card-text">{{ $post->body }}</p>
             <p class="card-text">Author: {{ $post->user->name }}</p>
@@ -59,7 +59,7 @@
                 route('author.post.like', $post->id) }}"
                 >
                 @csrf
-                <button type="submit" class="btn btn-outline-secondary btn-sm ml-2">{{ $hasUserLiked ? 'Dislike' : 'Like' }}</button>
+                <button type="submit" class="btn btn-outline-secondary btn-sm ">{{ $hasUserLiked ? 'Dislike' : 'Like' }}</button>
                 {{-- <span class="text-muted ml-2">{{ $comment->like() }}</span> --}}
                 <span class="text-muted ml-2">{{ $post->likes_count }}</span>
             </form>
@@ -69,13 +69,13 @@
     @endforeach
 </div>
 
-{{-- <div class="card align-items-center">
+<div class="card align-items-center">
     @if (isset($search))
-    {{ $posts->appends(['searchPost' => $authorName])->links() }}
+    {{ $posts->appends(['searchPost' => $search])->links() }}
     @else
     {{ $posts->links() }}
     @endif
-</div> --}}
+</div>
 @endif
 
 @endsection

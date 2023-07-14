@@ -8,15 +8,21 @@
         @if ($post->cover_image)
             <img src="{{ asset('/storage' . $post->cover_image) }}" alt="Cover image" class="card-img-top mb-4" style="max-width: 100%; display: block; margin: 0 auto;">
         @endif
-        <form method="POST" action="{{ $post->hasUserLiked() ?
+
+        @if(auth()->check())
+
+        <?php
+        $hasUserLiked = $post->hasUserLiked()
+        ?>
+        <form method="POST" action="{{ $hasUserLiked ?
             route('author.post.unlike', $post->id) :
             route('author.post.like', $post->id) }}"
             >
             @csrf
-            <button type="submit" class="btn btn-outline-secondary btn-sm ml-2">{{ $post->hasUserLiked() ? 'Dislike' : 'Like' }}</button>
-            {{-- <span class="text-muted ml-2">{{ $comment->like() }}</span> --}}
-            <span class="text-muted ml-2">{{ $post->likes()->count() }}</span>
+            <button type="submit" class="btn btn-outline-secondary btn-sm ml-2">{{ $hasUserLiked ? 'Dislike' : 'Like' }}</button>
+            <span class="text-muted ml-2">{{ $post->likes_count }}</span>
         </form>
+        @endif
 
         <p class="card-text">{{ $post->body }}</p>
         <p class="card-text">Author: {{ $post->user->name }}</p>
@@ -27,6 +33,7 @@
         </p>
     </div>
 </div>
+
 
 
 <div class="card mt-4">
@@ -53,19 +60,22 @@
                     }
                 </style>
 
-                <form method="POST" action="{{ $comment->hasUserLiked() ?
+                @if(auth()->check())
+                <?php
+                $hasUserLiked = $comment->hasUserLiked()
+                ?>
+                <form method="POST" action="{{ $hasUserLiked ?
                     route('author.comments.unlike', $comment->id) :
                     route('author.comments.like', $comment->id) }}"
                     >
                     @csrf
-                    <button type="submit" class="btn btn-outline-secondary btn-sm ml-2">{{ $comment->hasUserLiked() ? 'Dislike' : 'Like' }}</button>
+                    <button type="submit" class="btn btn-outline-secondary btn-sm ml-2">{{ $hasUserLiked ? 'Dislike' : 'Like' }}</button>
                     {{-- <span class="text-muted ml-2">{{ $comment->like() }}</span> --}}
                     <span class="text-muted ml-2">{{ $comment->likes()->count() }}</span>
                 </form>
 
 
 
-                @if(auth()->user())
                 @if (auth()->user()->is($comment->user))
                 <div class="d-flex justify-content-end">
                     <form method="post" action="{{ route('author.deleteComment', ['id' => $comment->id]) }}">
@@ -98,6 +108,7 @@
             @endif
             </div>
         </div>
+
         @endforeach
     </div>
 </div>
@@ -120,5 +131,5 @@
 </div>
 
 
-
 @endsection
+

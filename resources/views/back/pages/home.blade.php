@@ -13,7 +13,7 @@
             <div class="card mb-3">
                 @if ($post->cover_image)
                     <div class="card-img-top">
-                        <img src="{{ asset('/storage' .$post->cover_image) }}" alt="Cover image">
+                        <img decoding="async" loading="lazy" src="{{ asset('/storage' .$post->cover_image) }}" alt="Cover image">
                     </div>
                 @endif
                 <div class="card-body">

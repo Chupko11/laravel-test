@@ -125,25 +125,11 @@ class PostController extends Controller
         })->orWhereHas('tags', function (Builder $query) use ($search){
             $query->where('name', 'like', $search);
         })
-        ->orWhere('title','like', $search)->get();
-
-
-        // if ($authorName){
-        //     $author = User::where('name', $authorName)->first();
-
-        //     if($author){
-        //         $posts = Blog::where('user_id', $author->id)->with('user')->orderBy('created_at', 'desc')->paginate(5);
-
-        //     }
-        // }
-
-
-
+        ->orWhere('title','like', $search)->paginate(6);
         return view('back.pages.searchpost', compact('posts', 'search'));
     }
 
-    public function display($post){
-        $post = Blog::findOrFail($post);
+    public function display(Blog $post){
         return view('back.pages.displaypost', compact('post'));
     }
 
