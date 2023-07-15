@@ -12,6 +12,8 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    public CONST ADMIN_TYPE = 1;
+    public CONST USER_TYPE = 2;
     /**
      * The attributes that are mass assignable.
      *
@@ -60,5 +62,10 @@ class User extends Authenticatable
 
     public function comments(){
         return $this->hasMany(Comments::class);
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->type === self::ADMIN_TYPE;
     }
 }

@@ -11,7 +11,7 @@
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label class="form-label">Tag Name</label>
-                            <input type="text" class="form-control" name="name" placeholder="Enter tag title" required></input>
+                            <input type="text" class="form-control" name="name" placeholder="Enter tag " required></input>
                         </div>
                     </div>
                 <button type="submit" class="btn btn-primary">Save changes</button>

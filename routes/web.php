@@ -1,12 +1,13 @@
 <?php
+
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\PostController;
 use \App\Http\Controllers\AuthorController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\RegisterController;
-
-
+use App\Http\Middleware\IsAdmin;
 
 //grupacija route -> u ovom slucaju bi bio http://127.0.0.1:8000 sa dodatkom /author
 Route::prefix('author')->name('author.')->group(function(){
@@ -82,6 +83,18 @@ Route::prefix('author')->name('author.')->group(function(){
             });
 
 
+        });
+
+
+        Route::middleware(IsAdmin::class)->group(function(){
+            Route::controller(AdminController::class)->group(function(){
+                Route::get('/admin/users', 'showUsers')->name('showUsers');
+                Route::delete('/admin/users/{id}', 'deleteUser')->name('deleteUser');
+                Route::get('/admin/posts', 'showPosts')->name('showPostsAdmin');
+                Route::delete('/admin/posts/{id}', 'deletePosts')->name('deletePosts');
+                Route::get('/admin/comments', 'showComments')->name('showComments');
+
+            });
         });
     });
 

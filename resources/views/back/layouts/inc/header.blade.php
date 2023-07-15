@@ -102,6 +102,38 @@
                   </div>
                 </div>
               </li>
+              @if(auth()->user()->isAdmin())
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#navbar-extra" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="button" aria-expanded="false" >
+
+                  <span class="nav-link-title">
+                    Admin
+                  </span>
+                </a>
+                <div class="dropdown-menu">
+                  <div class="dropdown-menu-columns">
+                    <div class="dropdown-menu-column">
+                      <a class="dropdown-item" href="{{ route('author.showUsers') }}">
+                        Show all users
+                      </a>
+                      <a class="dropdown-item" href="{{route('author.showPostsAdmin')}}">
+                        Show all posts
+                      </a>
+                      <a class="dropdown-item" href="{{-- route('author.showPosts') --}}">
+                        Show all tags
+                      </a>
+                      <a class="dropdown-item" href="{{-- route('author.showPosts') --}}">
+                        Show all Comments
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </li>
+              @endif
+
+
+
+
           </ul>
         </div>
       </div>

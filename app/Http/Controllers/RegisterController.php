@@ -42,7 +42,7 @@ public function index(){
         Mail::to($request->email)->send(new RegistrationSuccess($user));
 
 
-        return redirect()->route('author.login');
+        return redirect()->route('author.loginView');
 
 
 
