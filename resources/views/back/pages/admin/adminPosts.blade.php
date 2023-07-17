@@ -16,6 +16,11 @@
             <span class="badge badge-primary">{{ $tag->name }}</span>
             @endforeach
         </p>
+        <form method="post" action="{{ route('author.deletePostAdmin', ['id' => $post->id]) }}">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-danger mr-2">Delete Post</button>
+        </form>
     </div>
 </div>
 @endforeach

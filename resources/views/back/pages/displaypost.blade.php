@@ -71,7 +71,7 @@
                     @csrf
                     <button type="submit" class="btn btn-outline-secondary btn-sm ml-2">{{ $hasUserLiked ? 'Dislike' : 'Like' }}</button>
                     {{-- <span class="text-muted ml-2">{{ $comment->like() }}</span> --}}
-                    <span class="text-muted ml-2">{{ $comment->likes()->count() }}</span>
+                    <span class="text-muted ml-2">{{ $comment->likes_count}}</span>
                 </form>
 
 

@@ -88,12 +88,13 @@ Route::prefix('author')->name('author.')->group(function(){
 
         Route::middleware(IsAdmin::class)->group(function(){
             Route::controller(AdminController::class)->group(function(){
-                Route::get('/admin/users', 'showUsers')->name('showUsers');
-                Route::delete('/admin/users/{id}', 'deleteUser')->name('deleteUser');
+                Route::get('/admin/users', 'showUsers')->name('showUsersAdmin');
+                Route::delete('/admin/users/{id}', 'deleteUser')->name('deleteUserAdmin');
                 Route::get('/admin/posts', 'showPosts')->name('showPostsAdmin');
-                Route::delete('/admin/posts/{id}', 'deletePosts')->name('deletePosts');
-                Route::get('/admin/comments', 'showComments')->name('showComments');
-
+                Route::delete('/admin/posts/{id}', 'deletePosts')->name('deletePostAdmin');
+                Route::get('/admin/tags', 'showTags')->name('showTagsAdmin');
+                Route::get('/admin/comments', 'showComments')->name('showCommentsAdmin');
+                Route::delete('/admin/comments/{id}', 'deleteComments')->name('deleteCommentsAdmin');
             });
         });
     });

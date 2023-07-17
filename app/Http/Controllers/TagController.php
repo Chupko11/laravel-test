@@ -38,7 +38,7 @@ class TagController extends Controller
     public function showTags(){
         $tags = Tag::all();
 
-        return view('back.pages.deleteTag', compact('tags'));
+        return view('back.pages.showtag', compact('tags'));
     }
 
 

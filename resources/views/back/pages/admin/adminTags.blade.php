@@ -1,5 +1,5 @@
 @extends('back.layouts.pages-layout')
-@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Delete tags')
+@section('pageTitle', isset($pageTitle) ? $pageTitle : 'Admin tags')
 @section('content')
 @foreach ($tags as $tag)
     <div class="card">

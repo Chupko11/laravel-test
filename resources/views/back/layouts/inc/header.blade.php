@@ -95,7 +95,7 @@
                         Add new tags
                       </a>
                       <a class="dropdown-item" href="{{ route('author.showTags') }}">
-                        Delete tags
+                        Show tags
                       </a>
 
                     </div>
@@ -113,16 +113,16 @@
                 <div class="dropdown-menu">
                   <div class="dropdown-menu-columns">
                     <div class="dropdown-menu-column">
-                      <a class="dropdown-item" href="{{ route('author.showUsers') }}">
+                      <a class="dropdown-item" href="{{ route('author.showUsersAdmin') }}">
                         Show all users
                       </a>
                       <a class="dropdown-item" href="{{route('author.showPostsAdmin')}}">
                         Show all posts
                       </a>
-                      <a class="dropdown-item" href="{{-- route('author.showPosts') --}}">
+                      <a class="dropdown-item" href="{{ route('author.showTagsAdmin')}}">
                         Show all tags
                       </a>
-                      <a class="dropdown-item" href="{{-- route('author.showPosts') --}}">
+                      <a class="dropdown-item" href="{{route('author.showCommentsAdmin')}}">
                         Show all Comments
                       </a>
                     </div>
