@@ -133,7 +133,7 @@ class PostController extends Controller
 
 
     public function display(Blog $post){
-        $post->with('user', 'tags')->withCount('likes');
+        $post->loadCount('likes');
         return view('back.pages.displaypost', compact('post'));
     }
 

@@ -10,6 +10,16 @@
         @endif
 
         @if(auth()->check())
+
+
+        <p class="card-text">{{ $post->body }}</p>
+        <p class="card-text">Author: {{ $post->user->name }}</p>
+        <p class="card-text">Tags:
+            @foreach ($post->tags as $tag)
+                <span class="badge badge-primary">{{ $tag->name }}</span>
+            @endforeach
+        </p>
+
         <?php
         $hasUserLiked = $post->hasUserLiked()
         ?>
@@ -22,14 +32,6 @@
             <span class="text-muted ml-2">{{ $post->likes_count }}</span>
         </form>
         @endif
-
-        <p class="card-text">{{ $post->body }}</p>
-        <p class="card-text">Author: {{ $post->user->name }}</p>
-        <p class="card-text">Tags:
-            @foreach ($post->tags as $tag)
-                <span class="badge badge-primary">{{ $tag->name }}</span>
-            @endforeach
-        </p>
     </div>
 </div>
 
@@ -94,15 +96,15 @@
                                 </div>
                                 @if(auth()->check())
                                 <?php
-                                $hasUserLiked = $post->hasUserLiked()
+                                $hasUserLiked = $reply->hasUserLiked()
                                 ?>
                                 <form method="POST" action="{{ $hasUserLiked ?
-                                    route('author.post.unlike', $post->id) :
-                                    route('author.post.like', $post->id) }}"
+                                    route('author.post.unlike', $reply->id) :
+                                    route('author.post.like', $reply->id) }}"
                                     >
                                     @csrf
                                     <button type="submit" class="btn btn-outline-secondary btn-sm ml-2">{{ $hasUserLiked ? 'Dislike' : 'Like' }}</button>
-                                    <span class="text-muted ml-2">{{ $post->likes_count}}</span>
+                                    <span class="text-muted ml-2">{{ $reply->likes_count}}</span>
                                 </form>
                                 @endif
                             </div>
