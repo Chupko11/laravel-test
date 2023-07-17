@@ -109,6 +109,7 @@ class PostController extends Controller
     }
 
 
+
     public function search(){
         $posts = Blog::with('user')->withCount('likes')->orderBy('created_at', 'desc')->paginate(5);
         return view ('back.pages.searchpost', compact('posts'));
@@ -129,10 +130,14 @@ class PostController extends Controller
         return view('back.pages.searchpost', compact('posts', 'search'));
     }
 
+
+
     public function display(Blog $post){
-        $post->withCount('likes');
+        $post->with('user', 'tags')->withCount('likes');
         return view('back.pages.displaypost', compact('post'));
     }
+
+
 
     public function likePost(Blog $id){
         $hasUserLiked = $id->likes()->where('user_id', auth()->user()->id)->exists();

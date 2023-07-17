@@ -108,5 +108,22 @@ class CommentController extends Controller
         return redirect()->back();
     }
 
+    public function commentReply(Request $request, $post_id){
+        $request->validate([
+            'content' => 'required|min:5|max:2000',
+            'user_id' =>'required',
+            'parent_id' =>'required',
+        ]);
+
+        $comment = new Comments();
+        $comment->content = $request->content;
+        $comment->user_id = $request->user_id;
+        $comment->parent_id = $request->parent_id;
+        $comment->blog_id = $post_id;
+        $comment->save();
+
+        Session::flash('Success', 'The comment has been added');
+        return redirect()->back();
+    }
 
 }

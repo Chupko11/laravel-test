@@ -23,4 +23,8 @@ class Comments extends Model
     public function blogs(){
         return $this->belongsTo(Blog::class);
     }
+
+    public function replies(){
+        return $this->hasMany(Comments::class, 'parent_id');
+    }
 }
