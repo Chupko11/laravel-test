@@ -89,8 +89,19 @@
                         <button type="button" class="btn btn-primary" onclick="showUpdateForm('{{ $comment->id }}')">Update Comment</button>
                     </form>
                 </div>
+                    <script>
+                    function showUpdateForm(commentId) {
+                        const updateForm = document.getElementById(`updateComment${commentId}`);
+                        if (updateForm.style.display === 'block') {
+                        updateForm.style.display = 'none';
+                        } else {
+                        updateForm.style.display = 'block';
+                        }
+                    }
+                </script>
 
-                <div id="updateComment" style="display: none;">
+
+                <div id="updateComment{{ $comment->id }}" style="display: none;">
                     <form method="post" action="{{ route('author.updateComment', ['id' => $comment->id]) }}">
                         @csrf
                         <textarea name="content" class="form-control" rows="4" placeholder="Update your comment" required>{{ $comment->content }}</textarea>
@@ -98,12 +109,7 @@
                     </form>
                 </div>
 
-                <script>
-                    function showUpdateForm(commentId) {
-                        const updateForm = document.getElementById(`updateComment`);
-                        updateForm.style.display = 'block';
-                    }
-                </script>
+
             @endif
             @endif
             </div>
