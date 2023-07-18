@@ -78,8 +78,9 @@ Route::prefix('author')->name('author.')->group(function(){
                 Route::post('/comments/{id}/like', 'likeComment')->name('comments.like');
                 Route::post('/comments/{id}/unlike', 'unlikeComment')->name('comments.unlike');
                 Route::post('/comments/{id}/reply', 'commentReply')->name('comments.reply');
+                Route::post('/reply/{id}/like', 'likeReply')->name('reply.like');
+                Route::post('/reply/{id}/unlike', 'unlikeReply')->name('reply.unlike');
                 Route::post('/comments/{id}', 'update')->name('updateComment');
-
             });
 
 

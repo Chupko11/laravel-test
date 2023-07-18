@@ -58,8 +58,8 @@
                                 $hasUserLiked = $reply->hasUserLiked()
                                 ?>
                                 <form method="POST" action="{{ $hasUserLiked ?
-                                    route('author.post.unlike', $reply->id) :
-                                    route('author.post.like', $reply->id) }}"
+                                    route('author.reply.unlike', $reply->id) :
+                                    route('author.reply.like', $reply->id) }}"
                                     >
                                     @csrf
                                     <button type="submit" class="btn btn-outline-secondary btn-sm ml-2">{{ $hasUserLiked ? 'Dislike' : 'Like' }}</button>

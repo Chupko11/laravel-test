@@ -37,7 +37,7 @@ class AuthorController extends Controller
         return redirect()->back();
     }
 
-    
+
     public function profile() {
         $user = auth()->user();
 
