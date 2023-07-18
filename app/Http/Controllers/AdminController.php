@@ -26,7 +26,7 @@ class AdminController extends Controller
         return view('back.pages.admin.adminPosts', compact('posts'));
     }
 
-    public function deletePost(Blog $id){
+    public function deletePosts(Blog $id){
         $id->delete();
         return redirect()->back();
     }
@@ -46,6 +46,12 @@ class AdminController extends Controller
     public function deleteComments(Comments $id){
         $id->delete();
         return redirect()->back();
+    }
+
+    public function showUserDetails(User $id){
+        $posts = Blog::where('user_id', $id->id)->get();
+        $comments = Comments::where('user_id', $id->id)->get();
+        return view('back.pages.admin.adminUserDetails', compact ('id', 'posts', 'comments'));
     }
 
 }

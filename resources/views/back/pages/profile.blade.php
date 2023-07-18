@@ -57,26 +57,20 @@
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label class="form-label">Name</label>
-                            <input type="text" class="form-control" name="name" placeholder="{{ $user->name }}"></input>
+                            <input type="text" class="form-control" name="name" placeholder="{{ $user->name }}" nullable></input>
                         </div>
                     </div>
                     <div class="col-md-4">
                         <div class="mb-3">
                             <label class="form-label">Username</label>
-                            <input type="text" class="form-control" name="username" placeholder="{{ $user->username }}"></input>
+                            <input type="text" class="form-control" name="username" placeholder="{{ $user->username }}" nullable></input>
                         </div>
 
-                    </div>
-                    <div class="col-md-4">
-                        <div class="mb-3">
-                            <label class="form-label">Email</label>
-                            <input type="text" class="form-control" name="email"  placeholder="{{ $user->email }}"></input>
-                        </div>
                     </div>
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Biography</label>
-                    <textarea class="form-control" name="biography" placeholder="{{ $user->biography }}"></textarea>
+                    <textarea class="form-control" name="biography" placeholder="{{ $user->biography }}" nullable></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Save changes</button>
             </form>

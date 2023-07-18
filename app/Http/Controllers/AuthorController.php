@@ -29,7 +29,6 @@ class AuthorController extends Controller
 
         $user->name = $request->name;
         $user->biography = $request->biography;
-        $user->email = $request->email;
         $user->username = $request->username;
 
         $user->save();
@@ -111,6 +110,6 @@ class AuthorController extends Controller
 
         Auth::logout();
 
-        return redirect()->route('author.login')->with('Account has been deleted succesfully');
+        return redirect()->route('author.loginView')->with('Account has been deleted succesfully');
     }
 }
