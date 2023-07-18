@@ -37,11 +37,14 @@ class AuthorController extends Controller
         return redirect()->back();
     }
 
+    
     public function profile() {
         $user = auth()->user();
 
         return view('back.pages.profile', ['user' => $user]);
     }
+
+
 
     Public function updateProfilePicture(Request $request){
         $request->validate([
@@ -67,6 +70,8 @@ class AuthorController extends Controller
         return redirect()->back()->with('Success', 'Profile picture updated successfully');
     }
 
+
+
     public function updatePasswordSave(Request $request){
         $this->validate($request, [
             'old_password' => 'required',
@@ -91,6 +96,7 @@ class AuthorController extends Controller
 
 
 
+
     public function deleteAccount(Request $request){
         $request->validate([
             'password' => 'required'
@@ -101,7 +107,6 @@ class AuthorController extends Controller
         if(!Hash::check($request->password, $user->password)){
             return redirect()->back()->with('Error', 'Password is incorrect');
         }
-
         $user->delete();
 
         Auth::logout();

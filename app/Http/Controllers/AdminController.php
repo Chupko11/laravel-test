@@ -38,7 +38,7 @@ class AdminController extends Controller
     }
 
     public function showComments(){
-        $comments = Comments::all();
+        $comments = Comments::with('user')->withCount('likes')->get();
         return view('back.pages.admin.adminComments', compact('comments'));
 
     }
