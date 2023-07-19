@@ -77,12 +77,12 @@
                                     <button type="submit" class="btn btn-primary">Save Changes</button>
                                 </form>
                             </div>
-
+                        @endif
                             <div class="mt-2">
                                 <button type="button" class="btn btn-secondary btn-sm" onclick="toggleReplies('{{ $comment->id }}')">View Replies</button>
                                 <button type="button" class="btn btn-secondary btn-sm" onclick="showReplyForm('{{ $comment->id }}')">Reply</button>
                             </div>
-                        @endif
+
                     @endif
 
                     <div id="replies{{ $comment->id }}" style="display: none;">
@@ -109,9 +109,8 @@
                                 @endif
                             </div>
                         @endforeach
-
-
                     </div>
+
 
                     <div id="replyForm{{ $comment->id }}" class="mt-3" style="display: none;">
                             <form method="POST" action="{{ route('author.comments.reply', $post->id) }}">
@@ -127,6 +126,23 @@
                 </div>
             </div>
         @endforeach
+    </div>
+</div>
+
+
+<div class="card mt-4">
+    <div class="card-body">
+        <h4 class="text-center">Add a Comment</h4>
+        <form action="{{ route('author.createComment', $post->id) }}" method="POST">
+            @csrf
+            <input type="hidden" name="user_id" value="{{ $post->user->id }}">
+            <div class="form-group">
+                <textarea name="content" class="form-control" rows="4" placeholder="Your comment" required></textarea>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary">Submit Comment</button>
+            </div>
+        </form>
     </div>
 </div>
 

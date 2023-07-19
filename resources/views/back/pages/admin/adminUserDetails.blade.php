@@ -13,7 +13,7 @@
           <div class="row">
             <div class="col-auto">
               <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M3 21l18 0" /><path d="M5 21v-14l8 -4v18" /><path d="M19 21v-10l-6 -4" /><path d="M9 9l0 .01" /><path d="M9 12l0 .01" /><path d="M9 15l0 .01" /><path d="M9 18l0 .01" /></svg>
-              <a href="#" class="text-reset">UI Designer</a>
+              <a class="text-reset">{{ $id->isAdmin() ? 'Admin' : 'User'}}</a>
             </div>
           </div>
         </div>
@@ -102,13 +102,16 @@
     </div>
   </div>
 
+
+
+
   <div class="card-body">
     <div class="tab-content">
       <div class="tab-pane" id="tabs-comments">
         <div>
 
         <div>
-            @foreach ($comments->where('parent_id', null) as $comment)
+            @foreach ($comments as $comment)
 
         <div class="media mb-4">
                 <img src="{{ asset('storage/' . $comment->user->picture) }}" class="mr-3 rounded-circle" alt="User Avatar" style="width: 50px; height: 50px;">
@@ -137,70 +140,13 @@
                                 </form>
                             </div>
 
-                            <div class="mt-2">
-                                <button type="button" class="btn btn-secondary btn-sm" onclick="toggleReplies('{{ $comment->id }}')">View Replies</button>
-                                <button type="button" class="btn btn-secondary btn-sm" onclick="showReplyForm('{{ $comment->id }}')">Reply</button>
-                            </div>
                     @endif
-
-                    <div id="replies{{ $comment->id }}" style="display: none;">
-                        @foreach ($comment->replies as $reply)
-                            <div class="media mt-3">
-                                <img src="{{ asset('storage/' . $reply->user->picture) }}" class="mr-3 rounded-circle" alt="User Avatar" style="width: 40px; height: 40px;">
-                                <div class="media-body">
-                                    <h6 class="mt-0">{{ $reply->user->name }}</h6>
-                                    <p>{{ $reply->content }}</p>
-                                    <small class="text-muted">{{ $reply->created_at }}</small>
-                                </div>
-                                @if(auth()->check())
-                                <?php
-                                $hasUserLiked = $reply->hasUserLiked()
-                                ?>
-                                <form method="POST" action="{{ $hasUserLiked ?
-                                    route('author.reply.unlike', $reply->id) :
-                                    route('author.reply.like', $reply->id) }}"
-                                    >
-                                    @csrf
-                                    <button type="submit" class="btn btn-outline-secondary btn-sm ml-2">{{ $hasUserLiked ? 'Dislike' : 'Like' }}</button>
-                                    <span class="text-muted ml-2">{{ $reply->likes_count}}</span>
-                                </form>
-                                @endif
-                            </div>
-
-                        <script>
-                            function toggleReplies(commentId) {
-                                const repliesDiv = document.getElementById(`replies${commentId}`);
-                                if (repliesDiv.style.display === 'block') {
-                                    repliesDiv.style.display = 'none';
-                                } else {
-                                    repliesDiv.style.display = 'block';
-                                }
-                            }
-
-                            function showReplyForm(commentId) {
-                                const replyForm = document.getElementById(`replyForm${commentId}`);
-                                if (replyForm.style.display === 'block') {
-                                    replyForm.style.display = 'none';
-                                } else {
-                                    replyForm.style.display = 'block';
-                                }
-                            }
-
-                        </script>
-
                     @endforeach
-                    </div>
-                    
-
-      </div>
-      </div>
+                </div>
+        </div>
+        </div>
     </div>
   </div>
-
-
-
-
-
-
+</div>
 
 @endsection

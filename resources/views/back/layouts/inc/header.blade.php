@@ -19,7 +19,7 @@
                 @if (auth()->check())
             <div class="d-none d-xl-block ps-2">
               <div>{{ $user->name }}</div>
-              <div class="mt-1 small text-muted">UI Designer</div>
+              <div class="mt-1 small text-muted">{{ $user->isAdmin() ? 'Admin' : 'User' }}</div>
             </div>
             @endif
           </a>
@@ -91,7 +91,7 @@
                 <div class="dropdown-menu">
                   <div class="dropdown-menu-columns">
                     <div class="dropdown-menu-column">
-                    
+
 
                     <a class="dropdown-item" href="{{ route('author.createTag') }}">
                     Add new tags

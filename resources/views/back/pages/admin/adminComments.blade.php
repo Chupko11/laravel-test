@@ -67,7 +67,7 @@
                                 </form>
                                 @endif
                             </div>
-        @endforeach
+                        @endforeach
 
 
                     </div>
@@ -84,12 +84,10 @@
                             </form>
                     </div>
                 </div>
-                @endforeach
+
             </div>
-
-    </div>
-</div>
-
+            @endforeach
+        </div>
 <script>
     function toggleReplies(commentId) {
         const repliesDiv = document.getElementById(`replies${commentId}`);
@@ -108,7 +106,10 @@
             replyForm.style.display = 'block';
         }
     }
-
 </script>
+</div>
+
+
+
 @endsection
 
