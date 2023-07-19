@@ -4,9 +4,11 @@
 
 @section('content')
 <div class="hero-section">
-    <img src="{{ asset('back/heroImage.jpg') }}" alt="Hero Image">
+    <img src="{{ asset('back/heroImage.jpg') }}" alt="Hero Image" style="border-radius: 10%;">
 </div>
 
+<h4 class="text-center">All posts</h4>
+        <hr>
 <div class="row">
     @foreach ($posts as $post)
         <div class="col-md-4">
@@ -16,7 +18,7 @@
                         <img decoding="async" loading="lazy" src="{{ asset('/storage' .$post->cover_image) }}" alt="Cover image">
                     </div>
                 @endif
-                <div class="card-body">
+                <div class="card-body" style="border-radius: 20%;">
                     <h2 class="card-title">
                         <a href="{{ route('author.postsDisplay', $post->id) }}">{{ $post->title }}</a>
                     </h2>

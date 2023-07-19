@@ -2,10 +2,14 @@
 @section('pageTitle', isset($pageTitle) ? $pageTitle : 'HomeGuest')
 @section('content')
 <div class="hero-section">
-    <img src="{{ asset('back/heroImage.jpg') }}" alt="Hero Image">
+    <img src="{{ asset('back/heroImage.jpg') }}" alt="Hero Image" style="border-radius: 10%;">
 </div>
 
+<hr>
+<h1 class="text-center">All posts</h1>
+        <hr>
 <div class="row">
+
     @foreach ($posts as $post)
         <div class="col-md-4">
             <div class="card mb-3">
