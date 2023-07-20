@@ -50,7 +50,7 @@ class AdminController extends Controller
 
     public function showUserDetails(User $id){
         $posts = Blog::where('user_id', $id->id)->get();
-        $comments = Comments::where('user_id', $id->id)->get();
+        $comments = Comments::where('user_id', $id->id)->with('user')->get();
         return view('back.pages.admin.adminUserDetails', compact ('id', 'posts', 'comments'));
     }
 

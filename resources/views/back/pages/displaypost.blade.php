@@ -79,7 +79,9 @@
                             </div>
                         @endif
                             <div class="mt-2">
+                                @if ($comment->replies()->count())
                                 <button type="button" class="btn btn-secondary btn-sm" onclick="toggleReplies('{{ $comment->id }}')">View Replies</button>
+                                @endif
                                 <button type="button" class="btn btn-secondary btn-sm" onclick="showReplyForm('{{ $comment->id }}')">Reply</button>
                             </div>
 
