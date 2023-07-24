@@ -59,7 +59,7 @@ class PostController extends Controller
     $post->save();
 
         $tags = $request->input('tags');
-        $post->tags()->attach($request->input('tags'));
+        $post->tags()->attach($tags);
 
         return redirect()->route('author.showPosts')->with('Post created successfuly');
     }
