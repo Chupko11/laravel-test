@@ -131,7 +131,6 @@ class PostController extends Controller
     }
 
 
-
     public function display(Blog $post){
         $post->loadCount('likes');
         return view('back.pages.displaypost', compact('post'));

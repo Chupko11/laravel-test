@@ -12,7 +12,6 @@ class TagController extends Controller
 
     public function createTag(){
         $tags = Tag::all();
-
         return view('back.pages.tag', compact('tags'));
     }
 
@@ -20,24 +19,18 @@ class TagController extends Controller
         $request->validate([
             'name' => 'required|unique:tags',
         ]);
-
             $tagName = $request->input('name');
-
         Tag::create(['name' => $tagName]);
-
         return redirect()->route('author.createTag')->with('Tag was created successfuly.');
     }
 
     public function deleteTag(Tag $id){
-
         $id->delete();
-
         return redirect()->back()->with('Success', 'Tag deleted successfully');
     }
 
     public function showTags(){
         $tags = Tag::all();
-
         return view('back.pages.showtag', compact('tags'));
     }
 
