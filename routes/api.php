@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\TagController;
 use App\Http\Controllers\API\PostController;
+use App\Http\Controllers\API\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,7 +37,13 @@ Route::prefix('tags')->group(function(){
     Route::get('/{id}', [TagController::class, 'blogsWithTags'])->name('displayBlogsWithTags');
 });
 
-Route::prefix('comments')
+Route::prefix('comments')->group(function(){
+    Route::get('/', [CommentController::class,'index'])->name('displayComments');
+    Route::post('create/{postid}', [CommentController::class,'create'])->name('createComment');
+    Route::put('update/{id}', [CommentController::class,'update'])->name('updateComment');
+    Route::delete('delete/{id}', [CommentController::class,'delete'])->name('deleteComment');
+
+});
 
 
 
