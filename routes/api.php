@@ -3,6 +3,7 @@
 use App\Models\Blog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\AuthorController;
 use App\Http\Controllers\API\TagController;
 use App\Http\Controllers\API\PostController;
 use App\Http\Controllers\API\CommentController;
@@ -42,8 +43,23 @@ Route::prefix('comments')->group(function(){
     Route::post('create/{postid}', [CommentController::class,'create'])->name('createComment');
     Route::put('update/{id}', [CommentController::class,'update'])->name('updateComment');
     Route::delete('delete/{id}', [CommentController::class,'delete'])->name('deleteComment');
-
+    Route::post('/{id}/like', [CommentController::class, 'likeComment'] )->name('likeComment');
+    Route::post('/{id}/unlike', [CommentController::class, 'unlikeComment'] )->name('unlikeComment');
 });
+
+Route::prefix('author')->group(function(){
+
+    Route::get('/', [AuthorController::class,'index'])->name('home');
+    Route::post('/update/{id}', [AuthorController::class,'update'])->name('profile-update');
+    Route::post('/update/picture/{id}', [AuthorController::class,'updateProfilePicture'])->name('profile-update-picture');
+    Route::post('/update/password/{id}', [AuthorController::class,'updatePasswordSave'])->name('profile-update-password');
+    Route::delete('/delete/{id}', [AuthorController::class,'delete'])->name('deleteAccount');
+});
+
+
+
+
+
 
 
 

@@ -11,10 +11,12 @@ use Illuminate\Support\Facades\Session;
 
 class CommentController extends Controller
 {
+    
     public function index()
     {
         return Comments::all();
     }
+
 
     public function create(Request $request, $postid){
         $request->validate([
@@ -33,6 +35,7 @@ class CommentController extends Controller
     }
 
 
+
     //zasto x-form umijesto form data u postmanu
     public function update(Request $request, $id)
     {
@@ -47,11 +50,39 @@ class CommentController extends Controller
         return response()->json(['message' => 'Comment was successfuly updated']);
     }
 
+
     public function delete(Comments $id){
         $id->delete();
 
         return response()->json(['message' => 'Comment was successfuly deleted']);
     }
+
+
+    //potreban je user token
+    public function likeComment(Request $request, Comments $id){
+        $userId = $request->user_id;
+        $hasUserLiked = $id->likes()->where('user_id', $userId)->exists();
+
+        if(!$hasUserLiked){
+            $id->likes()->create([
+                'user_id' => $userId,
+            ]);
+        }
+
+        return response()->json(['message' => 'Comment liked successfully']);
+    }
+
+    //potrebno je sa auth::user()
+    public function unlikePost(Request $request, Comments $id){
+        $userId = $request->user_id;
+        $hasUserLiked = $id->likes()->where('user_id', $userId)->exists();
+        if($hasUserLiked){
+            $id->likes()->delete();
+        }
+
+        return response()->json(['message' => 'Comment unliked successfully']);
+    }
+
 
 
 

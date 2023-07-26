@@ -104,22 +104,27 @@ class PostController extends Controller
     }
 
 
+    
+
     //za provjeru likePost i unlikePost treba user token
 
     public function likePost(Request $request, Blog $id){
-        $hasUserLiked = $id->likes()->where('user_id', $request->user()->id)->exists();
+        $userId = $request->user_id;
+        $hasUserLiked = $id->likes()->where('user_id', $userId)->exists();
 
         if(!$hasUserLiked){
             $id->likes()->create([
-                'user_id' => $request->user()->id,
+                'user_id' => $userId,
             ]);
         }
 
         return response()->json(['message' => 'Post liked successfully']);
     }
 
+    //potrebno je sa auth::user()
     public function unlikePost(Request $request, Blog $id){
-        $hasUserLiked = $id->likes()->where('user_id', $request->user()->id)->exists();
+        $userId = $request->user_id;
+        $hasUserLiked = $id->likes()->where('user_id', $userId)->exists();
         if($hasUserLiked){
             $id->likes()->delete();
         }
