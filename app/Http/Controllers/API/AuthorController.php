@@ -51,14 +51,14 @@ class AuthorController extends Controller
         return response()->json(['message' => 'User profile picture updated successfuly']);
     }
 
+
+
     public function updatePasswordSave(Request $request, User $id){
         $this->validate($request, [
             'old_password' => 'required',
             'new_password' => 'required|min:8',
             'confirm_password' => 'required|same:new_password'
         ]);
-
-
         if(!Hash::check($request->old_password, $id->password)){
             return redirect()->back()->with('Error', 'The old password is wrong.');
         }
@@ -73,6 +73,8 @@ class AuthorController extends Controller
         return response()->json(['message' => 'User password updated successfuly']);
     }
 
+
+
     public function delete(Request $request, User $id){
         $request->validate([
             'password' => 'required'
@@ -86,7 +88,6 @@ class AuthorController extends Controller
 
         return response()->json(['message' => 'User deleted successfuly']);
     }
-
 
 
 }

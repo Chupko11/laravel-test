@@ -3,10 +3,11 @@
 use App\Models\Blog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\API\AuthorController;
 use App\Http\Controllers\API\TagController;
 use App\Http\Controllers\API\PostController;
+use App\Http\Controllers\API\AuthorController;
 use App\Http\Controllers\API\CommentController;
+use App\Http\Controllers\API\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,41 +20,65 @@ use App\Http\Controllers\API\CommentController;
 |
 */
 Route::prefix('blogs')->group(function(){
-    Route::get('/', [PostController::class,'index'])->name('displayBlogs');
-    Route::post('/create', [PostController::class, 'create'])->name('createPost');
-    Route::get('/search', [PostController::class, 'search'])->name('searchPost');
-    Route::delete('/delete/{id}', [PostController::class, 'delete'])->name('deletePost');
-    Route::put('/update/{id}', [PostController::class, 'update'])->name('updatePost');
-    Route::get('/tag/{tagid}',[PostController::class, 'displayTagPost'])->name('displayTagPost');
-    Route::get('/user/{userid}', [PostController::class, 'displayUsersPosts'])->name('displayUsersPosts');
-    Route::post('/{id}/like', [PostController::class, 'likePost'] )->name('likePost');
-    Route::post('/{id}/unlike', [PostController::class, 'unlikePost'] )->name('unlikePost');
-    Route::get('/{id}',[PostController::class, 'displayPost'])->name('displayPost');
+    Route::get('/', [PostController::class,'index']);
+    Route::post('/create', [PostController::class, 'create']);
+    Route::get('/search', [PostController::class, 'search']);
+    Route::delete('/delete/{id}', [PostController::class, 'delete']);
+    Route::put('/update/{id}', [PostController::class, 'update']);
+    Route::get('/tag/{tagid}',[PostController::class, 'displayTagPost']);
+    Route::get('/user/{userid}', [PostController::class, 'displayUsersPosts']);
+    Route::post('/{id}/like', [PostController::class, 'likePost'] );
+    Route::post('/{id}/unlike', [PostController::class, 'unlikePost'] );
+    Route::get('/{id}',[PostController::class, 'displayPost']);
 });
 
 Route::prefix('tags')->group(function(){
-    Route::get('/', [TagController::class, 'index'])->name('displayTags');
-    Route::post('/create', [TagController::class, 'create'])->name('createTags');
-    Route::get('/delete/{id}', [TagController::class, 'delete'])->name('deleteTag');
-    Route::get('/{id}', [TagController::class, 'blogsWithTags'])->name('displayBlogsWithTags');
+    Route::get('/', [TagController::class, 'index']);
+    Route::post('/create', [TagController::class, 'create']);
+    Route::get('/delete/{id}', [TagController::class, 'delete']);
+    Route::get('/{id}', [TagController::class, 'blogsWithTags']);
 });
 
 Route::prefix('comments')->group(function(){
-    Route::get('/', [CommentController::class,'index'])->name('displayComments');
-    Route::post('create/{postid}', [CommentController::class,'create'])->name('createComment');
-    Route::put('update/{id}', [CommentController::class,'update'])->name('updateComment');
-    Route::delete('delete/{id}', [CommentController::class,'delete'])->name('deleteComment');
-    Route::post('/{id}/like', [CommentController::class, 'likeComment'] )->name('likeComment');
-    Route::post('/{id}/unlike', [CommentController::class, 'unlikeComment'] )->name('unlikeComment');
+    Route::get('/', [CommentController::class,'index']);
+    Route::post('create/{postid}', [CommentController::class,'create']);
+    Route::put('update/{id}', [CommentController::class,'update']);
+    Route::delete('delete/{id}', [CommentController::class,'delete']);
+    Route::post('/{id}/like', [CommentController::class, 'likeComment'] );
+    Route::post('/{id}/unlike', [CommentController::class, 'unlikeComment'] );
 });
 
 Route::prefix('author')->group(function(){
 
-    Route::get('/', [AuthorController::class,'index'])->name('home');
-    Route::post('/update/{id}', [AuthorController::class,'update'])->name('profile-update');
-    Route::post('/update/picture/{id}', [AuthorController::class,'updateProfilePicture'])->name('profile-update-picture');
-    Route::post('/update/password/{id}', [AuthorController::class,'updatePasswordSave'])->name('profile-update-password');
-    Route::delete('/delete/{id}', [AuthorController::class,'delete'])->name('deleteAccount');
+    Route::get('/', [AuthorController::class,'index']);
+    Route::post('/update/{id}', [AuthorController::class,'update']);
+    Route::post('/update/picture/{id}', [AuthorController::class,'updateProfilePicture']);
+    Route::post('/update/password/{id}', [AuthorController::class,'updatePasswordSave']);
+    Route::delete('/delete/{id}', [AuthorController::class,'delete']);
+});
+
+Route::prefix('home')->group(function(){
+    Route::get('/', [RegisterController::class,'index']);
+    Route::post('/signup', [RegisterController::class, 'store']);
+    Route::post('/login', [RegisterController::class, 'login']);
+    Route::post('/forgot-password', [RegisterController::class, 'forgotPassword']);
+    Route::post('/reset-password', [RegisterController::class, 'resetPassword']);
+});
+
+Route::middleware(IsAdmin::class)->group(function(){
+    Route::prefix('admin')->group(function(){
+        Route::get('/users', [AdminController::class, 'showUsers']);
+        Route::get('/posts', [AdminController::class, 'showPosts']);
+        Route::get('/tags', [AdminController::class, 'showTags']);
+        Route::get('/comments', [AdminController::class, 'showComments']);
+        Route::get('/posts', [AdminController::class, 'showPosts']);
+        Route::delete('/users/delete/{id}', [AdminController::class, 'deleteUser']);
+        Route::delete('/posts/delete/{id}', [AdminController::class, 'deletePost']);
+        Route::delete('/tags/delete/{id}', [AdminController::class, 'deleteTag']);
+        Route::delete('/comments/delete/{id}', [AdminController::class, 'deleteComments']);
+        Route::get('/users/{id}', [AdminController::class, 'showUserDetails']);
+
+    });
 });
 
 
@@ -63,7 +88,7 @@ Route::prefix('author')->group(function(){
 
 
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
