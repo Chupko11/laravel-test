@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 use App\Mail\ForgotPassword;
 use Illuminate\Http\Request;
 use App\Mail\RegistrationSuccess;
+use Illuminate\Http\JsonResponse;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\ResetRequest;
 use App\Http\Controllers\Controller;
@@ -32,7 +33,14 @@ class RegisterController extends Controller
 
 
         ]);
-        $user = User::create(request(['name','username','email', 'password']));
+        $user = User::create([
+            'name' => $request->name,
+            'username' => $request->username,
+            'email' => $request->email,
+            'password' => $request->password,
+            'api_token' => Str::random(60),
+
+        ]);
 
         Mail::to($request->email)->send(new RegistrationSuccess($user));
 
@@ -50,13 +58,22 @@ class RegisterController extends Controller
 
         ];
         if(Auth::guard('web')->attempt($creds)){
-            $user= User::where('email', $request->login_id)->get()->first();
-            Auth::login($user);
-            $token = $user->createToken('API Token')->plainTextToken;
-            return response()->json(['token' => $token]);
+            $user= Auth::guard('web')->user();
+            $user->api_token = Str::random(60);
+            $user->save();
+            return $user;
         }else{
             return response()->json(['message' => 'Error with login']);
         }
+    }
+
+    public function logout(Request $request) :JsonResponse
+    {
+        $user = Auth::guard('api')->user();
+        $user->api_token = null;
+        $user->save();
+
+        return response()->json(['message' => 'You are successfuly logged out']);
     }
 
     public function forgotPassword(ForgotRequest $request){
@@ -79,12 +96,12 @@ class RegisterController extends Controller
         ]);
         $user = User::where('email', $request->email)->get()->first();
         if($request->token !== $user->token){
-            return redirect()->back()->with('Error', 'Invalid token');
+            return response()->json(['message' => 'Something went wrong']);
         }
         else{
             $user->password = $request->new_password;
             $user->save();
-            return redirect()->back()->with('Success', 'Password has been updated');
+            return response()->json(['message' => 'Password reset successful']);
         }
     }
 }

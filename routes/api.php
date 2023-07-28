@@ -2,6 +2,7 @@
 
 use App\Models\Blog;
 use Illuminate\Http\Request;
+use App\Http\Middleware\IsAdmin;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\TagController;
 use App\Http\Controllers\API\PostController;
@@ -48,7 +49,7 @@ Route::prefix('comments')->group(function(){
     Route::post('/{id}/unlike', [CommentController::class, 'unlikeComment'] );
 });
 
-Route::prefix('author')->group(function(){
+Route::prefix('user')->group(function(){
 
     Route::get('/', [AuthorController::class,'index']);
     Route::post('/update/{id}', [AuthorController::class,'update']);
@@ -57,13 +58,20 @@ Route::prefix('author')->group(function(){
     Route::delete('/delete/{id}', [AuthorController::class,'delete']);
 });
 
-Route::prefix('home')->group(function(){
+Route::prefix('author')->group(function(){
     Route::get('/', [RegisterController::class,'index']);
     Route::post('/signup', [RegisterController::class, 'store']);
     Route::post('/login', [RegisterController::class, 'login']);
     Route::post('/forgot-password', [RegisterController::class, 'forgotPassword']);
     Route::post('/reset-password', [RegisterController::class, 'resetPassword']);
+
+
+Route::group(['middleware' => ['auth:api']], function(){
+    Route::post('/logout', [RegisterController::class, 'logout']);
 });
+
+});
+
 
 Route::middleware(IsAdmin::class)->group(function(){
     Route::prefix('admin')->group(function(){
@@ -90,6 +98,7 @@ Route::middleware(IsAdmin::class)->group(function(){
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
+
 });
 
 
