@@ -2,10 +2,12 @@
 
 use App\Models\Blog;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Router;
 use App\Http\Middleware\IsAdmin;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\TagController;
 use App\Http\Controllers\API\PostController;
+use App\Http\Controllers\API\AdminController;
 use App\Http\Controllers\API\AuthorController;
 use App\Http\Controllers\API\CommentController;
 use App\Http\Controllers\API\RegisterController;
@@ -73,31 +75,32 @@ Route::group(['middleware' => ['auth:api']], function(){
 });
 
 
+
+
+
+
+
+
+
+
+
+Route::middleware('auth:api')->group(function () {
 Route::middleware(IsAdmin::class)->group(function(){
     Route::prefix('admin')->group(function(){
-        Route::get('/users', [AdminController::class, 'showUsers']);
-        Route::get('/posts', [AdminController::class, 'showPosts']);
-        Route::get('/tags', [AdminController::class, 'showTags']);
-        Route::get('/comments', [AdminController::class, 'showComments']);
-        Route::get('/posts', [AdminController::class, 'showPosts']);
-        Route::delete('/users/delete/{id}', [AdminController::class, 'deleteUser']);
-        Route::delete('/posts/delete/{id}', [AdminController::class, 'deletePost']);
-        Route::delete('/tags/delete/{id}', [AdminController::class, 'deleteTag']);
-        Route::delete('/comments/delete/{id}', [AdminController::class, 'deleteComments']);
-        Route::get('/users/{id}', [AdminController::class, 'showUserDetails']);
 
-    });
+            Route::get('/users', [AdminController::class, 'showUsers']);
+            Route::get('/posts', [AdminController::class, 'showPosts']);
+            Route::get('/tags', [AdminController::class, 'showTags']);
+            Route::get('/comments', [AdminController::class, 'showComments']);
+            Route::get('/posts', [AdminController::class, 'showPosts']);
+            Route::delete('/users/delete/{id}', [AdminController::class, 'deleteUser']);
+            Route::delete('/posts/delete/{id}', [AdminController::class, 'deletePost']);
+            Route::delete('/tags/delete/{id}', [AdminController::class, 'deleteTag']);
+            Route::delete('/comments/delete/{id}', [AdminController::class, 'deleteComments']);
+            Route::get('/users/{id}', [AdminController::class, 'showUserDetails']);
+
 });
-
-
-
-
-
-
-
-
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+});
 
 });
 

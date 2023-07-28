@@ -17,7 +17,7 @@ class Authenticate extends Middleware
             session()->flash('fail', 'You must sign in first');
             return route('author.login');
         }
-
+        
 
     }
 }
